@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-cards">
+    <div class="card">
+        <div class="cabecera c3"><h1>Login</h1></div>
+        <form class="form" method="POST">
+            {% csrf_token %}
+            <label class="Error">{{error}}</label>
+            <input class="inputTexto" type="text" id="username" name="username" placeholder="Usuario" required>
+    
+            <input class="inputTexto" type="password" id="password" name="password" placeholder="Contraseña" required>
+    
+            <input class="inputSubir" type="submit" value="Iniciar sesión">
+        </form>
+    </div>
+</div>
+{% endblock %}

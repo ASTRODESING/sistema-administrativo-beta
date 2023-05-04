@@ -1,0 +1,53 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/items.css' %}">
+<div class="content-categoria">
+    <form method="POST">
+        <div class="añadirProducto producto">
+            {% csrf_token %}
+            <p>{{status}}</p>
+            <br>
+            <p>Nombre</p>
+            <input class="entradaDatos" type="text" name="nombre" id="nombre" value="{{producto.nombre}}">
+            <br>
+            <p>Descripción</p>
+            <input class="entradaDatos" type="text" name="descripcion" id="descripcion"
+                value="{{producto.descripcion}}">
+
+            <label class="etiquetas"> Categoria Del Producto </label>
+            <div class="select-container">
+                <select id="categoria" name="categoria">
+                    {% for categoriaprod in categorias%}
+                    <option value="{{categoriaprod.nombre}}">{{categoriaprod.nombre}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <p>Confirma el valor de este parametro antes de editar</p>
+            <br>
+            <p>Precio Venta</p>
+            <input class="entradaDatos" type="text" name="precio_venta" id="precio_venta"
+                value="{{producto.precio_venta}}">
+            <br>
+            <p>Precio Compra</p>
+            <input class="entradaDatos" type="text" name="precio_compra" id="precio_compra"
+                value="{{producto.precio_compra}}">
+            <br>
+            <p>Disponibilidad</p>
+            <input class="entradaDatos" type="number" name="stock" id="stock" value="{{producto.stock}}">
+
+            <input class="entradaDatos" type="text" name="codigo_de_barras" id="codigo_de_barras" placeholder="Codigo de Barras" value="{{producto.codigo_de_barras}}" maxlength="13" required>
+
+            <div class="botones">
+                <input class="anadir" type="submit" value=" Editar ">
+                <a class="anadir btn2" href="{% url 'inventario'%}"> Volver</a>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+
+
+{% endblock%}

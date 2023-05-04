@@ -1,0 +1,24 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/ventas.css' %}">
+
+
+<div class="content">
+    <a href="{% url 'caja' %}">
+        <div class="btn-panel">
+            <p>Caja</p> 
+        </div>
+    </a>
+    <a href="{% url 'reportes' %}">
+        <div class="btn-panel">
+            <p>Reportes</p> 
+        </div>
+    </a>
+    <a href="{% url 'clientes' %}">
+        <div class="btn-panel">
+            <p>Clientes</p> 
+        </div>
+    </a>
+</div>
+{% endblock %}

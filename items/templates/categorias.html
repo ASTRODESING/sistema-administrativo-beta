@@ -1,0 +1,31 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/items.css' %}">
+<div class="content-categoria">
+    <form method="POST">
+        <div class="añadirProducto categoria">
+            {% csrf_token %}
+            <input class="entradaDatos" type="text" name="nombre" id="nombre" placeholder="Nombre de la Categoria"
+                required>
+            <br>
+            <label class="etiquetas"> ¿Es una Categoria importante? </label>
+
+            <label class="checkbox-container">
+                <input type="checkbox" name="destacado" id="destacado" checked="True">
+                <span class="checkmark"></span>
+            </label>
+            <br>
+            <div class="botones">
+                <input class="anadir" type="submit" value=" Editar ">
+                <a class="anadir btn2" href="{% url 'inventario'%}"> Volver</a>
+            </div>
+            <br>
+            <p>{{status}}</p>
+        </div>
+    </form>
+</div>
+
+
+{% endblock%}

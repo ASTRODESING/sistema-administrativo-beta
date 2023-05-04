@@ -1,0 +1,51 @@
+<style>
+    .text-center {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .text-end {
+        text-align: right;
+    }
+
+    @media print {
+        @page {
+            size: 3.1in;
+            margin: 5px;
+        }
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+</style>
+<body>
+
+    <h3 class="text-center">COCOROTE SHOP</h3>
+<h4 class="text-center"> aqui va la direccion del negocio </h4>
+<h4 class="text-center"> CI/RIF:00000000</h4>
+<p> N* DE FACTURA = 00000 </p>
+<p>FECHA = {{datos.fecha}}</p>
+<p>-----------------------------------------------------------------</p>
+
+<br>
+
+{% for productos in contenido %}
+<p>{{productos.cantidad}} * {{productos.precio}}$</p>
+<p>{{productos.nombre}}</p>
+<p class="text-end">{{productos.subtotal}}$</p>
+{% endfor %}
+<p>-----------------------------------------------------------------</p>
+
+<p>EXENTO = {{total.total_excento}}$</p>
+<p>IVA = {{total.iva}}$</p>
+<p>SUBTOTAL CON IVA = {{total.subtotal_sin_excento_con_iva}}$</p>
+<p>-----------------------------------------------------------------</p>
+<p>TOTAL = {{total.total}}$</p>
+</body>
+

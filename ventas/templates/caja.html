@@ -1,0 +1,63 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/ventas.css' %}">
+<link href="{% static 'css/select2.min.css'%}" rel="stylesheet" />
+<script src="{% static 'js/jquery-3.5.1.js' %}"></script>
+<script src="{% static 'js/select2.min.js' %}"></script>
+
+
+
+<div class="content-2">
+    <div class="buscadores">
+        <div class="buscador">
+            <label for=""> Buscador por Nombre</label>
+            <select id="buscador_etiqueta" class="buscador-etiqueta" name="state">
+                {% for producto in productos%}
+                <option value="{{producto.id}}""> {{producto.nombre}}</option>
+                {% endfor %}
+            </select>
+              <button class=" anadir" type="submit" id="anadir-por-nombre" onclick="anadirProductoEtiqueta()">
+                    Anadir</button>
+        </div>
+        <div class="buscador">
+            <label for=""> Buscador por Codigo de Barra</label>
+            <select id="buscador_codigo" class="buscador-codigo" name="state">
+                {% for producto in productos%}
+                <option value="{{producto.id}}"> {{producto.nombre}} {{producto.codigo_de_barras}}</option>
+                {% endfor %}
+            </select>
+            <button class="anadir" type="submit" id="anadir-por-codigo" onclick="anadirProductoCodigo()">Anadir</button>
+        </div>
+    </div>
+</div>
+<div class="content-3">
+    <form method="POST" class="content">
+        {%csrf_token%}
+        <table class="tabla" id="tabla">
+            <thead>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Excento</th>
+                <th>Eliminar</th>
+            </thead>
+            <tbody id="tabla_productos">
+
+            </tbody>
+        </table>
+        <div class="buscador">
+            <h2 class="total"> TOTAL </h2>
+            <h1 id="total" class="total">0</h1>
+            <button onclick="calculo_total(event)" class="anadir btn_total">Recalcular</button>
+            <button type="submit" class="anadir btn_eliminar">Imprimir Factura</button>
+        </div>
+
+    </form>
+
+</div>
+
+
+<script src="{% static 'js/caja.js' %}"></script>
+{% endblock %}

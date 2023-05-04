@@ -1,0 +1,100 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+
+{% block content %}
+<script src="{% static 'js/jquery-3.5.1.js'%}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
+
+<link rel="stylesheet" href="{% static 'css/items.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<script src="{% static 'js/dataTables.bootstrap5.min.js'%}"></script>
+
+<script src="{% static 'js/items.js'%}"></script>
+
+
+<div class="content">
+    <form method="post">
+        {% csrf_token %}
+        <div class="añadirProducto">
+            <p>{{status}}</p>
+            <label class="Titulo">
+                <h1>Añadir Producto</h1>
+            </label>
+
+            <input class="entradaDatos" type="text" name="nombre" id="nombre" placeholder="Nombre del Producto"required>
+
+            <input class="entradaDatos" type="text" name="descripcion" id="descripcion"
+                placeholder="Descripcion Del Producto">
+
+            <label class="etiquetas"> Categoria Del Producto </label>
+            <div class="select-container">
+                <select id="categoria" name="categoria">
+                    {% for categoriaprod in categorias%}
+                    <option value="{{categoriaprod.nombre}}">{{categoriaprod.nombre}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <a class="anadir btn1" href="/items/categorias">Editar Categorias </a>
+
+            <input class="entradaDatos" type="text" name="precio_venta" id="precio_venta" placeholder="Precio de Venta"required>
+
+            <input class="entradaDatos" type="text" name="precio_compra" id="precio_compra"
+                placeholder="Precio de Compra" required>
+
+            <input class="entradaDatos" type="number" name="stock" id="stock" placeholder="Disponibilidad" required>
+
+            <input class="entradaDatos" type="text" name="codigo_de_barras" id="codigo_de_barras" placeholder="Codigo de Barras" maxlength="13" required>
+            
+            <div class="select-container">
+                <select id="excento" name="excento">
+                    <option value="0">No Exento</option>
+                    <option value="1">Exento</option>
+                </select>
+            </div>
+
+            <input class="anadir" type="submit" value=" Añadir">
+        </div>
+    </form>
+
+    <div class="tablaProductos">
+        <label class="Titulo c2">
+            <h1>Tabla Productos</h1>
+        </label>
+        <br>
+        <p>Has click en el nombre del producto para editar</p>
+        <br>
+        <div class="table-responsive-sm ">
+            <table class="table  table-dark table-striped-columns table-bordered" id="tabla-prod">
+                <thead>
+                    <tr>
+                        <th class="centrado">Nombre</th>
+                        <th class="centrado">Descripción</th>
+                        <th class="centrado">Categoria</th>
+                        <th class="centrado">Precio Venta</th>
+                        <th class="centrado">Precio Compra</th>
+                        <th class="centrado">Stock Disponible</th>
+                        <th class="centrado">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr>
+                        <th><a href="{% url 'editarproducto' producto.id %}">{{producto.nombre}}</a></th>
+                        <th><a href="{% url 'editarproducto' producto.id %}">{{producto.descripcion}}</a></th>
+                        <th><a href="{% url 'editarproducto' producto.id %}">{{producto.categoria}}</a></th>
+                        <th><a href="{% url 'editarproducto' producto.id %}">{{producto.precio_venta}}</a></th>
+                        <th><a href="{% url 'editarproducto' producto.id %}">{{producto.precio_compra}}</a></th>
+                        <th><a href="{% url 'editarproducto' producto.id %}">{{producto.stock}}</a></th>
+                        <th><a href="{% url 'eliminarprod' producto.id %}"> <img src="{% static 'img/eliminar.svg'%}"></a></th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+            
+    </div>
+</div>
+
+{% endblock %}

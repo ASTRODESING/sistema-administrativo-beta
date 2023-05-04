@@ -1,0 +1,238 @@
+@font-face{
+    font-family: 'Kanit-Bold';
+    src: url(/static/font/Kanit-Bold.ttf);
+    font-weight: bold;
+    font-style: bold;
+}
+@font-face{
+    font-family: 'Kanit';
+    src: url(/static/font/Kanit-Regular.ttf);
+    font-weight: regular;
+    font-style: regular;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Kanit';
+}
+body{
+    background-image: url(/static/img/inicio1.jpg);
+}
+.container-nav{
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 25px;
+    background: #6969694b;
+    box-shadow: 0px 0px 20px 0px #000000b0;
+    backdrop-filter: blur(10px);
+}
+.logo{
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s;
+}
+.logo img:hover{
+    scale: 150%;
+    transition: all 0.3s;
+}
+
+.menu{
+    display: none;
+}
+
+@media screen and (max-width:800px){
+    div .links-group1{
+        display: none;
+    }
+    .menu{
+        display: inherit;
+    }
+    .menu button{
+        appearance: none;
+        border: none;
+        background-color: transparent;
+        font-size: 30px;
+        font-family: 'Kanit-Bold';
+        color: white;
+        cursor: pointer;
+    }
+    .cabecera h1{
+        font-size: 25px;
+    }
+}
+
+.navbar{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+.navbar-links{
+    list-style: none;
+    margin: 0 20px;
+}
+.navbar-links li {
+    background-color: #20202000;
+    display: inline-block;
+    padding: 5px 20px;
+    margin: 0 20px;
+    border-radius: 5px;
+}
+.navbar-links li:hover {
+    background-color: #20202077;
+    transition: all 0.3s;
+
+}
+.navbar-links a {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    font-family: 'Kanit-Bold';
+}
+.navbar-links a:hover {
+    transition: all 0.3s;
+    color: #2EFF7D;
+}
+
+/* NAV */
+
+.overlay{
+    height: 100%;
+    width: 0%;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    background: #000000b0;
+    overflow: hidden;
+    transition: all 0.3s ease 0s;
+    backdrop-filter: blur(10px);
+}
+.overlay-content{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.overlay-content li a{
+    padding: 15px;
+    font-size: 36px;
+    display: block;
+    transition: all 0.3s ease 0s;
+    font-weight: bold;
+
+}
+.close{
+    font-family: 'Kanit-Bold';
+    color: white;
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 50px;
+}
+.close:hover{
+    color: #fc5757;
+}
+@media screen and (max-height:450px){
+    .overlay-content li a{
+        font-size: 20px;
+    }
+    .close{
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
+}
+
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #00000071;
+    height: 100%;
+    width: 100%;
+    color: white;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.card{
+    border: 2px solid #ffffff;
+    background: #00000085;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 500px;
+    max-height: 600px;
+    margin: 20px 10px;
+}
+.cabecera{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 7%;
+    background: linear-gradient(62deg, #007951 0%, #2EFF7D 100%);
+    padding: 5px 5px; 
+    box-shadow: 0px 0px 10px 0px #000000b0;
+}
+.c2{
+    background: linear-gradient(62deg, #003f79 0%, #2e9aff 100%);
+}
+.c3{
+    background: linear-gradient(62deg, #af0404c5 0%, #ff2e2ec5 100%);
+}
+.cabecera h1{
+font-family: 'Kanit-Bold';
+}
+.card p{
+    padding: 10px 10px 10px 10px;
+}
+
+.container-cards{
+    margin-top: 90px;
+}
+
+.form{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.inputTexto{
+    font-size: 20px;
+    font-family: 'Kanit-Bold';
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ffffff;
+    background: #ffffffd7;
+    outline: none;
+    margin: 20px;
+}
+
+.inputSubir{
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    font-size: 30px;
+    font-family: 'Kanit-Bold';
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    transition: all 0.3s;
+}
+.inputSubir:hover{
+    border-radius: 20px;
+    background-color: #2e9aff;
+    transition: all 0.3s;
+    padding: 10px;
+}
