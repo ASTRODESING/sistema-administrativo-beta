@@ -48,6 +48,12 @@
             </tbody>
         </table>
         <div class="buscador">
+            <select name="cliente" id="cliente">
+                {% for %}
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="buscador">
             <h2 class="total"> TOTAL </h2>
             <h1 id="total" class="total">0</h1>
             <button onclick="calculo_total(event)" class="anadir btn_total">Recalcular</button>

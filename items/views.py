@@ -11,7 +11,7 @@ def Inventario(request):
         return render(request, "inventario.html", {"productos": productos, "categorias":categorias})
     
     else:
-        #try:
+        try:
             prod = Producto.objects.create(
                 codigo_de_barras = request.POST["codigo_de_barras"],
                 nombre=request.POST["nombre"],
@@ -34,11 +34,11 @@ def Inventario(request):
             return render(
                 request, "inventario.html", {"status": sucess, "productos": productos,  "categorias":categorias}
             )
-        # except :
-        #     error= 'Ha ocurrido un error intente de nuevo'
-        #     return render(
-        #         request, "inventario.html", {"status": error, "productos": productos,  "categorias":categorias}
-        #     )
+        except :
+            error= 'Ha ocurrido un error intente de nuevo'
+            return render(
+                 request, "inventario.html", {"status": error, "productos": productos,  "categorias":categorias}
+             )
         
 
 def EditarProducto(request, producto_id):
@@ -48,7 +48,7 @@ def EditarProducto(request, producto_id):
     if request.method == 'GET':
         return render(request, 'editproduct.html', {'producto':producto, 'categorias':categorias})
     else:
-        #try:
+        try:
             producto.nombre = request.POST['nombre']
             producto.descripcion = request.POST['descripcion']
             producto.categoria = Categoria.objects.get(nombre=request.POST["categoria"])
@@ -63,9 +63,9 @@ def EditarProducto(request, producto_id):
             status = 'Producto Editado Satisfacoriamente'
             return render(request, 'editproduct.html', {'producto':producto,    'categorias':categorias, 'status':status})
         
-        #except:
-        #    status = 'La Edicion del Producto ha Fallado, intente de nuevo'
-        #    return render(request, 'editproduct.html', {'producto':producto,    'categorias':categorias, 'status':status})
+        except:
+            status = 'La Edicion del Producto ha Fallado, intente de nuevo'
+            return render(request, 'editproduct.html', {'producto':producto,    'categorias':categorias, 'status':status})
         
 def ElimnarProd(request, producto_id):
     producto = get_object_or_404(Producto, pk=producto_id)
