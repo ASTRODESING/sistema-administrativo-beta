@@ -48,12 +48,13 @@ def EditarProducto(request, producto_id):
     if request.method == 'GET':
         return render(request, 'editproduct.html', {'producto':producto, 'categorias':categorias})
     else:
-        try:
+        #try:
             producto.nombre = request.POST['nombre']
             producto.descripcion = request.POST['descripcion']
             producto.categoria = Categoria.objects.get(nombre=request.POST["categoria"])
             producto.precio_venta = request.POST['precio_venta']
             producto.precio_compra = request.POST['precio_compra']
+            producto.exento_de_impuesto = request.POST['excento']
             producto.stock = request.POST['stock']
             producto.codigo_de_barras = request.POST['codigo_de_barras']
             suma = int(producto.stock) + int(request.POST['stock'])
@@ -62,9 +63,9 @@ def EditarProducto(request, producto_id):
             status = 'Producto Editado Satisfacoriamente'
             return render(request, 'editproduct.html', {'producto':producto,    'categorias':categorias, 'status':status})
         
-        except:
-            status = 'La Edicion del Producto ha Fallado, intente de nuevo'
-            return render(request, 'editproduct.html', {'producto':producto,    'categorias':categorias, 'status':status})
+        #except:
+        #    status = 'La Edicion del Producto ha Fallado, intente de nuevo'
+        #    return render(request, 'editproduct.html', {'producto':producto,    'categorias':categorias, 'status':status})
         
 def ElimnarProd(request, producto_id):
     producto = get_object_or_404(Producto, pk=producto_id)

@@ -39,6 +39,13 @@
 
             <input class="entradaDatos" type="text" name="codigo_de_barras" id="codigo_de_barras" placeholder="Codigo de Barras" value="{{producto.codigo_de_barras}}" maxlength="13" required>
 
+            <div class="select-container">
+                <select id="excento" name="excento">
+                    <option value="0">No Exento</option>
+                    <option value="1">Exento</option>
+                </select>
+            </div>
+
             <div class="botones">
                 <input class="anadir" type="submit" value=" Editar ">
                 <a class="anadir btn2" href="{% url 'inventario'%}"> Volver</a>
