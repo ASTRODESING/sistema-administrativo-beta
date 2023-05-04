@@ -58,7 +58,7 @@ def imprimir_pdf(request):
                 "precio": producto.precio_venta,
                 "cantidad": producto_stock[contador],
                 "subtotal": round(subtotal_raw,2),
-                "excento": producto.execento_de_impuesto
+                "excento": producto.exento_de_impuesto
             }
         )
         if contenido[contador]['excento']:
@@ -94,7 +94,7 @@ def get_Productos(request, id_producto):
         "id": productos.pk,
         "nombre": productos.nombre,
         "precio": productos.precio_venta,
-        "excento": productos.execento_de_impuesto
+        "excento": productos.exento_de_impuesto
     }
     return JsonResponse(data)
 
