@@ -126,7 +126,8 @@ def Reportes(request):
 
 
 def Clientes(request):
-    return render(request, "caja.html")
+    clientes = Cliente.objects.all()
+    return render(request, "clientes.html", {"clientes":clientes})
 
 
 def EditCliente(request):

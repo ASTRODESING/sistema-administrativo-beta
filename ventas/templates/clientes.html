@@ -1,0 +1,43 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+{% block content %}
+<script src="{% static 'js/jquery-3.5.1.js'%}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
+
+<link rel="stylesheet" href="{% static 'css/items.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<script src="{% static 'js/dataTables.bootstrap5.min.js'%}"></script>
+
+<script src="{% static 'js/items.js'%}"></script>
+
+
+
+<div class="tablaProductos">
+    <label class="Titulo c2">
+        <h1>Tabla Productos</h1>
+    </label>
+    <br>
+    <p>Has click en el nombre para editar</p>
+    <br>
+    <div class="table-responsive-sm ">
+        <table class="table  table-dark table-striped-columns table-bordered" id="tabla-prod">
+            <thead>
+                <tr>
+                    <th class="centrado">Nombre</th>
+                    <th class="centrado">CI/RIF</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <th><a href="{% url 'editarproducto' producto.id %}">{{cliente.nombre}}</a></th>
+                <th><a href="{% url 'editarproducto' producto.id %}">{{cliente.ci_rif}}</a></th>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        
+</div>
+
+
+{% endblock %}
