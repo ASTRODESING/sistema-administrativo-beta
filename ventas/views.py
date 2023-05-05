@@ -94,6 +94,17 @@ def imprimir_pdf(request):
     html = template.render({"contenido": contenido, "total": total, "datos": datos})
     pdf_file = HTML(string=html).write_pdf()
 
+    file_object = BytesIO(pdf_file)
+    nueva_factura = Factura.objects.create(
+        id_cliente=  Cliente.objects.get(nombre=request.POST["cliente"]),
+        monto = total["total"],
+        usuario = request.user.username,
+        forma_de_pago = FormasDePago.objects.get(forma=request.POST["forma_de_pago"])
+
+    )
+    nueva_factura.save()
+    nueva_factura.documento.save("reporte.pdf",file_object)
+
     response = HttpResponse(pdf_file, content_type="application/pdf")
     response["Content-Disposition"] = 'attachment; filename="report.pdf"'
     return response

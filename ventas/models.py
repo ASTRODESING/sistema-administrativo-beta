@@ -16,6 +16,6 @@ class Factura(models.Model):
     fecha_creacion = models.DateField( default=timezone.now)
     monto = models.IntegerField(default=0)
     usuario = models.CharField(default="No User Data",max_length=150)
-    documento = models.FileField(null=True)
+    documento = models.FileField(null=True, upload_to='documents/')
     forma_de_pago = models.ForeignKey(FormasDePago, on_delete=models.CASCADE, to_field="forma", default=1)
     
