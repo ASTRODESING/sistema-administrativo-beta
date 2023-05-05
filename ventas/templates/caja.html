@@ -49,6 +49,10 @@
         </table>
         <div class="buscador">
             <select name="cliente" id="cliente">
+                {% for cliente in clientes%}
+                <option value=""></option>
+            </select>
+            <select name="forma_de_pago" id="forma_de_pago">
                 {% for %}
                 <option value=""></option>
             </select>

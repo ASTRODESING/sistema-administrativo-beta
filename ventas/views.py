@@ -6,7 +6,7 @@ from items.models import Producto
 from io import BytesIO
 from weasyprint import HTML
 from datetime import date
-
+from ventas.models import Cliente, Factura, FormasDePago
 
 
 def Panel(request):
@@ -16,7 +16,10 @@ def Panel(request):
 def Caja(request):
     if request.method == "GET":
         productos = Producto.objects.all()
-        return render(request, "caja.html", {"productos": productos})
+        clientes = Cliente.objects.all()
+        formas_de_pago = FormasDePago.objects.all()
+
+        return render(request, "caja.html", {"productos": productos, "clientes":clientes, "formas_de_pagos":formas_de_pago})
     else:
         productos_lista = request.POST
         contador = 0
