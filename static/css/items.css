@@ -68,6 +68,15 @@ body {
     align-items: center;
     justify-content: center;
 }
+.producto2 {
+    margin: 105px;
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 option {
     color: black;
 }

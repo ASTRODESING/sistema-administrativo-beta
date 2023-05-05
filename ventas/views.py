@@ -15,11 +15,21 @@ def Panel(request):
 
 def Caja(request):
     if request.method == "GET":
+        username = request.user
+        print(username)
         productos = Producto.objects.all()
         clientes = Cliente.objects.all()
         formas_de_pago = FormasDePago.objects.all()
 
-        return render(request, "caja.html", {"productos": productos, "clientes":clientes, "formas_de_pagos":formas_de_pago})
+        return render(
+            request,
+            "caja.html",
+            {
+                "productos": productos,
+                "clientes": clientes,
+                "formas_de_pagos": formas_de_pago,
+            },
+        )
     else:
         productos_lista = request.POST
         contador = 0
@@ -39,15 +49,14 @@ def Caja(request):
 
 
 def imprimir_pdf(request):
-    
     contenido = []
     total = {}
     datos = {}
     productos_lista = request.POST
     contador = 0
 
-    total['total_excento'] = 0
-    total['total_sin_excento'] = 0
+    total["total_excento"] = 0
+    total["total_sin_excento"] = 0
 
     for p in productos_lista.getlist("producto"):
         producto_stock = productos_lista.getlist("stock")
@@ -60,37 +69,34 @@ def imprimir_pdf(request):
                 "nombre": p,
                 "precio": producto.precio_venta,
                 "cantidad": producto_stock[contador],
-                "subtotal": round(subtotal_raw,2),
+                "subtotal": round(subtotal_raw, 2),
                 "excento": producto.exento_de_impuesto,
             }
         )
-        if contenido[contador]['excento']:
-            total['total_excento'] += contenido[contador]['subtotal']
+        if contenido[contador]["excento"]:
+            total["total_excento"] += contenido[contador]["subtotal"]
         else:
-            total['total_sin_excento'] += contenido[contador]['subtotal']
-        
-        
-        
+            total["total_sin_excento"] += contenido[contador]["subtotal"]
+
         contador += 1
-    
 
-    total['iva'] = round(total['total_sin_excento']*0.16, 2)
-    total['subtotal_sin_excento_con_iva'] = round(total['total_sin_excento'] +  total['iva'],2)
-    total['total'] = total['subtotal_sin_excento_con_iva'] + total['total_excento']
+    total["iva"] = round(total["total_sin_excento"] * 0.16, 2)
+    total["subtotal_sin_excento_con_iva"] = round(
+        total["total_sin_excento"] + total["iva"], 2
+    )
+    total["total"] = total["subtotal_sin_excento_con_iva"] + total["total_excento"]
 
-    datos['fecha']= date.today
-    datos['cliente'] = request.POST['cliente']
-    datos['forma_de_pago'] = request.POST['forma_de_pago']
+    datos["fecha"] = date.today
+    datos["cliente"] = request.POST["cliente"]
+    datos["forma_de_pago"] = request.POST["forma_de_pago"]
 
     template = get_template("pdf.html")
-    html = template.render({"contenido": contenido, "total":total, 'datos':datos})
+    html = template.render({"contenido": contenido, "total": total, "datos": datos})
     pdf_file = HTML(string=html).write_pdf()
 
     response = HttpResponse(pdf_file, content_type="application/pdf")
     response["Content-Disposition"] = 'attachment; filename="report.pdf"'
     return response
-
-
 
 
 def get_Productos(request, id_producto):
@@ -99,7 +105,7 @@ def get_Productos(request, id_producto):
         "id": productos.pk,
         "nombre": productos.nombre,
         "precio": productos.precio_venta,
-        "excento": productos.exento_de_impuesto
+        "excento": productos.exento_de_impuesto,
     }
     return JsonResponse(data)
 
@@ -110,3 +116,20 @@ def Reportes(request):
 
 def Clientes(request):
     return render(request, "caja.html")
+
+
+def EditCliente(request):
+    if request.method == "GET":
+        return render(request, "nuevocliente.html")
+    else:
+        try:
+            status = 'Cliente Creado Satisfactoriamente'
+            nuevo_cliente = Cliente.objects.create(
+                nombre = request.POST["nombre"],
+                ci_rif = request.POST["cidrif"]
+            )
+            nuevo_cliente.save()
+            return render(request, "nuevocliente.html", {'status':status})
+        except:
+             status = 'Ha Ocurrido un Error Intente de Nuevo'
+             return render(request, "nuevocliente.html",  {'status':status})

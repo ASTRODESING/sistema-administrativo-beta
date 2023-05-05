@@ -54,6 +54,7 @@
                 <option value="{{cliente.nombre}}">{{cliente.nombre}}</option>
                 {% endfor %}s
             </select>
+            <a class="anadir" href="/ventas/clientes/nuevocliente">Nuevo Cliente</a>
             <h3 class="total"> Forma de Pago </h3>
             <select name="forma_de_pago" id="forma_de_pago">
                 {% for forma_de_pago in formas_de_pagos %}
