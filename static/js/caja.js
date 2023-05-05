@@ -1,6 +1,8 @@
 $(document).ready(function () {
     $('.buscador-etiqueta').select2();
     $('.buscador-codigo').select2();
+    $('#forma_de_pago').select2();
+    $('#cliente').select2();
 
 });
 

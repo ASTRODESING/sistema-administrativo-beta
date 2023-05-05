@@ -61,7 +61,7 @@ def imprimir_pdf(request):
                 "precio": producto.precio_venta,
                 "cantidad": producto_stock[contador],
                 "subtotal": round(subtotal_raw,2),
-                "excento": producto.exento_de_impuesto
+                "excento": producto.exento_de_impuesto,
             }
         )
         if contenido[contador]['excento']:
@@ -79,6 +79,8 @@ def imprimir_pdf(request):
     total['total'] = total['subtotal_sin_excento_con_iva'] + total['total_excento']
 
     datos['fecha']= date.today
+    datos['cliente'] = request.POST['cliente']
+    datos['forma_de_pago'] = request.POST['forma_de_pago']
 
     template = get_template("pdf.html")
     html = template.render({"contenido": contenido, "total":total, 'datos':datos})

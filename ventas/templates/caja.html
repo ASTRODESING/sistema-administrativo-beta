@@ -48,13 +48,17 @@
             </tbody>
         </table>
         <div class="buscador">
+            <h3 class="total"> Nombre del cliente </h3>
             <select name="cliente" id="cliente">
                 {% for cliente in clientes%}
-                <option value=""></option>
+                <option value="{{cliente.nombre}}">{{cliente.nombre}}</option>
+                {% endfor %}s
             </select>
+            <h3 class="total"> Forma de Pago </h3>
             <select name="forma_de_pago" id="forma_de_pago">
-                {% for %}
-                <option value=""></option>
+                {% for forma_de_pago in formas_de_pagos %}
+                <option value="{{forma_de_pago.forma}}">{{forma_de_pago.forma}}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="buscador">
