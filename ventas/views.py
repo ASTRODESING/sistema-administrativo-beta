@@ -1,6 +1,6 @@
 import os
 from django.http import JsonResponse
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.template.loader import get_template
 from items.models import Producto
 from io import BytesIO
@@ -126,11 +126,26 @@ def Reportes(request):
 
 
 def Clientes(request):
-    clientes = Cliente.objects.all()
-    return render(request, "clientes.html", {"clientes":clientes})
+    if request.method == 'GET':
+        clientes = Cliente.objects.all()
+        return render(request, "clientes.html", {"clientes":clientes})
+    else:
+        try:
+            clientes = Cliente.objects.all()
+            status = 'Cliente Creado Satisfactoriamente'
+            nuevo_cliente = Cliente.objects.create(
+                nombre = request.POST["nombre"],
+                ci_rif = request.POST["cidrif"]
+            )
+            nuevo_cliente.save()
+            return render(request, "clientes.html", {'status':status, "clientes":clientes})
+        except:
+            clientes = Cliente.objects.all()
+            status = 'Ha Ocurrido un Error Intente de Nuevo'
+            return render(request, "clientes.html",  {'status':status, "clientes":clientes})
 
 
-def EditCliente(request):
+def NuevoCliente(request):
     if request.method == "GET":
         return render(request, "nuevocliente.html")
     else:
@@ -145,3 +160,26 @@ def EditCliente(request):
         except:
              status = 'Ha Ocurrido un Error Intente de Nuevo'
              return render(request, "nuevocliente.html",  {'status':status})
+        
+def ElimnarCliente(request, id_cliente):
+    cliente = get_object_or_404(Cliente, pk=id_cliente)
+    cliente.delete()
+    return redirect('clientes')
+
+def EditCliente(request, id_cliente):
+    cliente = get_object_or_404(Cliente, id=id_cliente)
+
+    if request.method == 'GET':
+        return render(request, 'editcliente.html', {"clientes":cliente})
+    else:
+        try:
+            cliente.nombre = request.POST['']
+            cliente.ci_rif = request.POST['']
+            cliente.save()
+            status = 'Cliente Editado Satisfacoriamente'
+            return render(request, 'editcliente.html', {"clientes":cliente, "status":status})
+        
+        except:
+            status = 'La Edicion del Producto ha Fallado, intente de nuevo'
+            return render(request, 'editcliente.html', {"clientes":cliente, "status":status})
+        
