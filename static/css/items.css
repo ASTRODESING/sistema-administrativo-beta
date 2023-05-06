@@ -11,6 +11,7 @@ body {
     grid-template-columns: 450px 750px
 }
 
+
 @media screen and (max-width:1080px) {
     .content {
         grid-template-columns: repeat(auto-fit, minmax(450px, 750px));  
@@ -43,6 +44,23 @@ body {
     justify-content: flex-start;
     background: #00000046;
 }
+.añadirCliente {
+    margin: 10px;
+    width: 400px;
+    height: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    color: white;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: flex-start;
+    background: #00000046;
+}
+
+
 
 .content-categoria {
     display: flex;
