@@ -1,0 +1,24 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/compras.css' %}">
+
+
+<div class="content">
+    <a href="{% url 'caja' %}">
+        <div class="btn-panel">
+            <p>Crear Orden de compra</p> 
+        </div>
+    </a>
+    <a href="{% url 'facturas' %}">
+        <div class="btn-panel">
+            <p>Historico Ordenes de compra</p> 
+        </div>
+    </a>
+    <a href="{% url 'clientes' %}">
+        <div class="btn-panel">
+            <p>Proveedores</p> 
+        </div>
+    </a>
+</div>
+{% endblock %}
