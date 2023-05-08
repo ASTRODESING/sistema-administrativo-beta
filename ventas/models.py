@@ -12,7 +12,7 @@ class FormasDePago(models.Model):
 
 class Factura(models.Model):
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE,to_field="id")
-    numero_factura = models.AutoField(default=0, primary_key=True)
+    numero_factura = models.AutoField(primary_key=True)
     fecha_creacion = models.DateField( default=timezone.now)
     monto = models.IntegerField(default=0)
     usuario = models.CharField(default="No User Data",max_length=150)

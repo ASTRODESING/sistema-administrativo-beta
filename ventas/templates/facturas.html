@@ -1,0 +1,50 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+
+{% block content %}
+<script src="{% static 'js/jquery-3.5.1.js'%}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
+
+<link rel="stylesheet" href="{% static 'css/items.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<script src="{% static 'js/dataTables.bootstrap5.min.js'%}"></script>
+
+<script src="{% static 'js/items.js'%}"></script>
+
+
+
+    <div class="tablaFacturas">
+        <label class="Titulo c2">
+            <h1>Tabla Facturas</h1>
+        </label>
+        <br>
+        <p>Has click en el nombre de la factura para visualizar</p>
+        <br>
+        <div class="table-responsive-sm ">
+            <table class="table  table-dark table-striped-columns table-bordered" id="tabla-prod">
+                <thead>
+                    <tr>
+                        <th class="centrado">Nombre Del Cliente</th>
+                        <th class="centrado">Numero Factura</th>
+                        <th class="centrado">Fecha de Creación</th>
+                        <th class="centrado">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for factura in facturas %}
+                    <tr>
+                        <th><a href="{% url 'getfactura' factura.numero_factura%}">{{factura.id_cliente.nombre}}</a></th>
+                        <th><a href="{% url 'getfactura' factura.numero_factura%}">{{factura.numero_factura}}</a></th>
+                        <th><a href="{% url 'getfactura' factura.numero_factura%}">{{factura.fecha_creacion}}</a></th>
+                        <th><a href=""> <img src="{% static 'img/eliminar.svg'%}"></a></th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+            
+    </div>
+</div>
+
+{% endblock %}

@@ -4,7 +4,8 @@ from . import views
 urlpatterns = [
     path('', views.Panel, name="panel_ventas"),
     path('caja', views.Caja, name="caja"),
-    path('reportes', views.Reportes, name="reportes"),
+    path('factura', views.Facturas, name="facturas"),
+    path('factura/getfactura/<int:numero_factur>', views.get_Factura, name="getfactura"),
     path('clientes', views.Clientes, name="clientes"),
     path('clientes/nuevocliente', views.NuevoCliente, name="nuevocliente"),
     path('clientes/editcliente/<int:id_cliente>', views.EditCliente, name="editcliente"),

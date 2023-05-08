@@ -1,4 +1,5 @@
 import os
+from datetime import datetime 
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.template.loader import get_template
@@ -90,11 +91,7 @@ def imprimir_pdf(request):
     datos["cliente"] = request.POST["cliente"]
     datos["forma_de_pago"] = request.POST["forma_de_pago"]
 
-    template = get_template("pdf.html")
-    html = template.render({"contenido": contenido, "total": total, "datos": datos})
-    pdf_file = HTML(string=html).write_pdf()
 
-    file_object = BytesIO(pdf_file)
     nueva_factura = Factura.objects.create(
         id_cliente=  Cliente.objects.get(nombre=request.POST["cliente"]),
         monto = total["total"],
@@ -103,10 +100,30 @@ def imprimir_pdf(request):
 
     )
     nueva_factura.save()
-    nueva_factura.documento.save("reporte.pdf",file_object)
+    datos["numero_factura"] = nueva_factura.numero_factura
+
+    template = get_template("pdf.html")
+    html = template.render({"contenido": contenido, "total": total, "datos": datos})
+    pdf_file = HTML(string=html).write_pdf()
+    file_object = BytesIO(pdf_file)
+
+    nombre = 'reporte-{}.pdf'.format(datetime.now())
+    
+    nueva_factura.documento.save(nombre ,file_object)
 
     response = HttpResponse(pdf_file, content_type="application/pdf")
-    response["Content-Disposition"] = 'attachment; filename="report.pdf"'
+    response["Content-Disposition"] = 'attachment; filename="{}"'.format(nombre)
+    return response
+
+def get_Factura(request, numero_factur):
+
+    objeto = get_object_or_404(Factura, numero_factura=numero_factur)
+    pdf_file = objeto.documento
+
+    nombre = os.path.splitext(os.path.basename(pdf_file.name))[0]
+
+    response = HttpResponse(pdf_file, content_type="application/pdf")
+    response["Content-Disposition"] = 'attachment; filename="{}.pdf"'.format(nombre)
     return response
 
 
@@ -116,13 +133,14 @@ def get_Productos(request, id_producto):
         "id": productos.pk,
         "nombre": productos.nombre,
         "precio": productos.precio_venta,
-        "excento": productos.exento_de_impuesto,
+        "excento": productos.exento_de_impuesto
     }
     return JsonResponse(data)
 
 
-def Reportes(request):
-    return render(request, "caja.html")
+def Facturas(request):
+    facturas = Factura.objects.all()
+    return render(request, "facturas.html", {"facturas":facturas})
 
 
 def Clientes(request):
@@ -167,19 +185,19 @@ def ElimnarCliente(request, id_cliente):
     return redirect('clientes')
 
 def EditCliente(request, id_cliente):
-    cliente = get_object_or_404(Cliente, id=id_cliente)
+    cliente = get_object_or_404(Cliente, pk=id_cliente)
 
     if request.method == 'GET':
         return render(request, 'editcliente.html', {"clientes":cliente})
     else:
         try:
-            cliente.nombre = request.POST['']
-            cliente.ci_rif = request.POST['']
+            cliente.nombre = request.POST['nombre']
+            cliente.ci_rif = request.POST['cidrif']
             cliente.save()
             status = 'Cliente Editado Satisfacoriamente'
             return render(request, 'editcliente.html', {"clientes":cliente, "status":status})
         
         except:
-            status = 'La Edicion del Producto ha Fallado, intente de nuevo'
+            status = 'La Edicion del Cliente ha Fallado, intente de nuevo'
             return render(request, 'editcliente.html', {"clientes":cliente, "status":status})
         

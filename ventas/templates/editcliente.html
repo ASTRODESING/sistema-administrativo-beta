@@ -1,0 +1,30 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/items.css' %}">
+<div class="content-categoria">
+    <form method="POST">
+        <div class="añadirProducto producto2">
+            {% csrf_token %}
+            <p>{{status}}</p>
+            <br>
+            <p>Nombre</p>
+            <input class="entradaDatos" type="text" name="nombre" id="nombre" placeholder="Ingrese nombre cliente" value="{{clientes.nombre}}">
+            <br>
+            <p> Cedula / RIF </p>
+            <input class="entradaDatos" type="number" name="cidrif" id="cidrif"
+               placeholder="Ingrese numero cedula / rif" value="{{clientes.ci_rif}}">
+            <div class="botones">
+                <input class="anadir" type="submit" value=" Editar ">
+                <a class="anadir btn2" href="{% url 'clientes' %}"> Volver</a>
+            </div>
+            <p>{{status}}</p>
+
+
+        </div>
+    </form>
+</div>
+
+
+{% endblock%}

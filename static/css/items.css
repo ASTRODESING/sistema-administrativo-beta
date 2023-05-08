@@ -144,6 +144,22 @@ option {
     padding: 10px;
 }
 
+.tablaFacturas {
+    display: flex;
+    margin-top: 120px;
+    width: auto;
+    height: 100%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    color: white;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
 .Titulo {
     margin-top: 10px;
     background: rgb(27,128,119);
