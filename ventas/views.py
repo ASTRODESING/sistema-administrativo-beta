@@ -10,14 +10,12 @@ from datetime import date
 from ventas.models import Cliente, Factura, FormasDePago
 
 
-def Panel(request):
+def panel(request):
     return render(request, "panel-ventas.html")
 
 
-def Caja(request):
+def caja(request):
     if request.method == "GET":
-        username = request.user
-        print(username)
         productos = Producto.objects.all()
         clientes = Cliente.objects.all()
         formas_de_pago = FormasDePago.objects.all()
@@ -90,6 +88,7 @@ def imprimir_pdf(request):
     datos["fecha"] = date.today
     datos["cliente"] = request.POST["cliente"]
     datos["forma_de_pago"] = request.POST["forma_de_pago"]
+    datos["usuario"] = request.user.username
 
 
     nueva_factura = Factura.objects.create(
@@ -115,7 +114,7 @@ def imprimir_pdf(request):
     response["Content-Disposition"] = 'attachment; filename="{}"'.format(nombre)
     return response
 
-def get_Factura(request, numero_factur):
+def get_factura(request, numero_factur):
 
     objeto = get_object_or_404(Factura, numero_factura=numero_factur)
     pdf_file = objeto.documento
@@ -127,7 +126,7 @@ def get_Factura(request, numero_factur):
     return response
 
 
-def get_Productos(request, id_producto):
+def get_productos(request, id_producto):
     productos = Producto.objects.get(id=id_producto)
     data = {
         "id": productos.pk,
@@ -138,12 +137,12 @@ def get_Productos(request, id_producto):
     return JsonResponse(data)
 
 
-def Facturas(request):
+def facturas(request):
     facturas = Factura.objects.all()
     return render(request, "facturas.html", {"facturas":facturas})
 
 
-def Clientes(request):
+def clientes(request):
     if request.method == 'GET':
         clientes = Cliente.objects.all()
         return render(request, "clientes.html", {"clientes":clientes})
@@ -163,7 +162,7 @@ def Clientes(request):
             return render(request, "clientes.html",  {'status':status, "clientes":clientes})
 
 
-def NuevoCliente(request):
+def nuevo_cliente(request):
     if request.method == "GET":
         return render(request, "nuevocliente.html")
     else:
@@ -179,12 +178,12 @@ def NuevoCliente(request):
              status = 'Ha Ocurrido un Error Intente de Nuevo'
              return render(request, "nuevocliente.html",  {'status':status})
         
-def ElimnarCliente(request, id_cliente):
+def elimnar_cliente(request, id_cliente):
     cliente = get_object_or_404(Cliente, pk=id_cliente)
     cliente.delete()
     return redirect('clientes')
 
-def EditCliente(request, id_cliente):
+def edit_cliente(request, id_cliente):
     cliente = get_object_or_404(Cliente, pk=id_cliente)
 
     if request.method == 'GET':
