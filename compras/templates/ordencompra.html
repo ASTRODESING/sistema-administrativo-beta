@@ -13,23 +13,24 @@
         <div class="cabecera">
             <div class="elemento-cabecera">
                 <select id="buscador_proveedor" class="buscador" name="state" aria-placeholder="Nombre Proveedor">
-                    
-                    <option value="""> </option>
+                    {% for proveedor in proveedores %}
+                    <option value="{{proveedor.id}}"> {{proveedor.nombre}} </option>
+                    {% endfor %}
                     
                 </select>
-                <a href="">Editar Proveedor</a>
+                <a href="{% url 'añadir_proveedor'%}">Editar Proveedor</a>
             </div>
     
             <div class="elemento-cabecera">
-                <input type=" number" placeholder="Presupuesto">
-                <label for="restante"> Dinero Restante</label>
+                <input type="number" placeholder="Presupuesto" id="presupuesto">
+                <label id="dinero_restante" for="restante"> Dinero Restante</label>
             </div>
         </div>
         <br>
         <br>
 
         <div class="content-tabla">
-            <button onclick=""> Añadir Producto </button>
+            <button onclick="btn_añadir(event)"> Añadir Producto </button>
             <table class="tabla" id="tabla">
 
                 <thead>

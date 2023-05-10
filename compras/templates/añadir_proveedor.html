@@ -1,0 +1,36 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/items.css' %}">
+
+
+<div class="content-categoria">
+    <form method="POST">
+        <div class="añadirProducto producto2">
+            {% csrf_token %}
+            <p>{{status}}</p>
+            <br>
+            <p>Nombre</p>
+            <input class="entradaDatos" type="text" name="nombre" id="nombre" placeholder="Ingrese nombre proveedor">
+            <br>
+            <p>Direccion</p>
+            <input class="entradaDatos" type="text" name="direccion" id="direccion" placeholder="Ingrese direccion proveedor">
+            <br>
+            <p> Telefono </p>
+            <p> Recuerda Colocar solo 11 digitos </p>
+            <input class="entradaDatos" type="number" name="telefono" id="telefono" maxlength="11" placeholder="Telefono">
+
+            <div class="botones">
+                <input class="anadir" type="submit" value=" Agregar ">
+                <a class="anadir btn2" href="{% url 'ordencompras' %}"> Volver</a>
+            </div>
+            <p>{{status}}</p>
+
+
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
