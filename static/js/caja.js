@@ -182,8 +182,6 @@ function calculo() {
 
             input_cantidad.addEventListener("keyup", function () {
                 if (this.parentNode.nextElementSibling.nextElementSibling.innerHTML == 'true'){
-                    console.log('dio true aqui esta el innerhtml =')
-                    console.log(this.parentNode.nextElementSibling.nextElementSibling.innerHTML)
                     var cantidad = parseFloat(this.value);
 
                     var precio = parseFloat(this.parentNode.previousElementSibling.innerHTML);
@@ -195,8 +193,6 @@ function calculo() {
                     this.parentNode.nextElementSibling.innerHTML = subtotal_formateado;
 
                 } else{
-                    console.log('dio false aqui esta el innerhtml =')
-                    console.log(this.parentNode.nextElementSibling.nextElementSibling.innerHTML)
 
                     var cantidad = parseFloat(this.value);
 

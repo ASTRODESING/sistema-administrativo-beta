@@ -1,13 +1,27 @@
-function CalculoDineroRestante(){
-    var presupuesto = document.getElementById("presupuesto")
-    var dinero_restante = document.getElementById("dinero_restante")
+function CalculoDineroRestante() {
+    const presupuesto = document.getElementById("presupuesto")
+    const dinero_restante = document.getElementById("dinero_restante")
+    const subtotales = document.getElementsByClassName("subtotales")
+    var total =0
 
-    presupuesto.addEventListener("keydown",function(){
-        dinero_restante = parseInt(presupuesto.innerText) 
+
+
+
+
+
+    presupuesto.addEventListener("keydown", function () {
+
+        for(let i = 0; i < subtotales.length; i++){
+            total += parseFloat(subtotales[i].textContent)
+            var total_formateado = total.toFixed(2)
+            dinero_restante.innerText = presupuesto - total_formateado
+        }
+
+
     })
 }
 
-function btn_añadr(evt){
+function btn_añadir(evt) {
     evt.preventDefault()
 
     var row = document.createElement("tr");
@@ -18,13 +32,14 @@ function btn_añadr(evt){
     var celda_eliminar = document.createElement("th");
 
     var cantidad = document.createElement("input");
+
     cantidad.name = `stock`
     cantidad.className = `cantidad`
     cantidad.placeholder = 'Ingrese Cantidad Producto'
     cantidad.type = 'number'
     cantidad.value = 1
     celda_cantidad.appendChild(cantidad)
-    
+
     var precio = document.createElement("input");
     precio.name = `precio`
     precio.className = `cantidad`
@@ -37,21 +52,21 @@ function btn_añadr(evt){
     nombre.name = `producto`
     nombre.className = `cantidad`
     nombre.type = 'text'
-    nombre.value = `${datos.nombre}`
+    nombre.value = ``
     celda_nombre.appendChild(nombre)
 
     var btn_eliminar = document.createElement("button")
-        btn_eliminar.textContent = 'X'
-        btn_eliminar.className = 'btn_eliminar'
-        btn_eliminar.id = 'btn_eliminar'
-        btn_eliminar.onclick = function (event) {
-            event.preventDefault()
+    btn_eliminar.textContent = 'X'
+    btn_eliminar.className = 'btn_eliminar'
+    btn_eliminar.id = 'btn_eliminar'
+    btn_eliminar.onclick = function (event) {
+        event.preventDefault()
 
-            const btn_eliminar = document.getElementById('btn_eliminar')
-            const fila = btn_eliminar.parentNode.parentNode
-            fila.remove()
+        const btn_eliminar = document.getElementById('btn_eliminar')
+        const fila = btn_eliminar.parentNode.parentNode
+        fila.remove()
 
-        }
+    }
     celda_eliminar.appendChild(btn_eliminar)
     celda_subtotal.className = `subtotal`
 
@@ -59,9 +74,8 @@ function btn_añadr(evt){
     row.appendChild(celda_precio)
     row.appendChild(celda_cantidad)
     row.appendChild(celda_subtotal)
-    row.appendChild(celda_excento)
     row.appendChild(celda_eliminar)
-
+    tabla_productos.appendChild(row)
 
 }
 
@@ -70,6 +84,7 @@ function btn_añadr(evt){
 
 $(document).ready(function () {
     $('#buscador_proveedor').select2();
-    CalculoDineroRestante();
+    calculo_dinero_restante();
+    calculo_subtotales()
 });
 
