@@ -10,6 +10,7 @@ def orden_compras(request):
         proveedores = Proveedor.objects.all()
         return render(request,"ordencompra.html", {"proveedores": proveedores})
     else:
+        print(request.POST)
         proveedores = Proveedor.objects.all()
         return render(request,"ordencompra.html", {"proveedores": proveedores})
     

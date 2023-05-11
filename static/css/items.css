@@ -100,7 +100,19 @@ option {
 }
 
 
-.anadir {
+.anadir{
+    font-family: 'Kanit-Bold';
+    font-size: 20px;
+    appearance: none;
+    border: none;
+    background-color: #00000046;
+    color: #adadad;
+    padding: 10px;
+    border-radius: 20px;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+.anadir2{
     font-family: 'Kanit-Bold';
     font-size: 20px;
     appearance: none;

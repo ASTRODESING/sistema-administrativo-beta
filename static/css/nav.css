@@ -46,7 +46,7 @@ body{
     display: none;
 }
 
-@media screen and (max-width:800px){
+@media screen and (max-width:974px){
     div .links-group1{
         display: none;
     }

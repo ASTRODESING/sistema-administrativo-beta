@@ -8,14 +8,14 @@ function calculo_dinero_restante() {
         total_subtotales += parseFloat(subtotales[i].textContent)
         var total = parseFloat(presupuesto.value) - total_subtotales
         var total_formateado = total.toFixed(2)
-        dinero_restante.innerText = total_formateado
+        dinero_restante.value = total_formateado
 
         console.log(total)
     }
 
-    if(parseInt(dinero_restante.innerHTML) < 0 ){
+    if (parseInt(dinero_restante.innerHTML) < 0) {
         dinero_restante.className = "negativo"
-    }else{
+    } else {
         dinero_restante.className = ""
     }
 }
@@ -38,6 +38,7 @@ function btn_añadir(evt) {
     cantidad.placeholder = 'Ingrese Cantidad Producto'
     cantidad.type = 'number'
     cantidad.value = 1
+    cantidad.name = "cantidad"
     celda_cantidad.appendChild(cantidad)
 
     var precio = document.createElement("input");
@@ -46,6 +47,7 @@ function btn_añadir(evt) {
     precio.placeholder = 'Ingrese Precio Producto'
     precio.type = 'number'
     precio.value = 1
+    precio.name = "precio"
     celda_precio.appendChild(precio)
 
     var nombre = document.createElement("input");
@@ -53,6 +55,7 @@ function btn_añadir(evt) {
     nombre.className = `nombre`
     nombre.type = 'text'
     nombre.value = ``
+    nombre.name = "nombre_producto"
     celda_nombre.appendChild(nombre)
 
     var btn_eliminar = document.createElement("button")

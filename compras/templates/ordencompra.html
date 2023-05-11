@@ -12,7 +12,7 @@
         {% csrf_token %}
         <div class="cabecera">
             <div class="elemento-cabecera">
-                <select id="buscador_proveedor" class="buscador" name="state" aria-placeholder="Nombre Proveedor">
+                <select id="buscador_proveedor" class="buscador" name="proveedor_id">
                     {% for proveedor in proveedores %}
                     <option value="{{proveedor.id}}"> {{proveedor.nombre}} </option>
                     {% endfor %}
@@ -22,8 +22,8 @@
             </div>
     
             <div class="elemento-cabecera">
-                <input type="number" placeholder="Presupuesto" id="presupuesto">
-                <label id="dinero_restante" for="restante"> Dinero Restante</label>
+                <input type="number" placeholder="Presupuesto" id="presupuesto" name="presupuesto">
+                <label id="dinero_restante" for="restante" name="dinero_restante"> Dinero Restante</label>
             </div>
         </div>
         <br>
@@ -53,7 +53,7 @@
 
 
         <div class="botones">
-            <button type="submit"> Guardar Orden</button>
+            <button type="submit"> Guardar e Imprimir Orden</button>
             <a href="{% url 'panelcompras' %}">Volver</a>
         </div>
     </form>
