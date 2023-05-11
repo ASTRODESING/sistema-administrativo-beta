@@ -186,7 +186,7 @@ a{
     background-color: #fd434386;
     transition: all 0.3s;
 }
-.cantidad{
+.cantidad, .precio, .nombre{
     display: inline-block;
     height: 32px;
     width: 10vmax;

@@ -18,7 +18,7 @@
                     {% endfor %}
                     
                 </select>
-                <a href="{% url 'añadir_proveedor'%}">Editar Proveedor</a>
+                <a href="{% url 'añadir_proveedor'%}">Añadir Proveedor</a>
             </div>
     
             <div class="elemento-cabecera">
@@ -30,7 +30,11 @@
         <br>
 
         <div class="content-tabla">
-            <button onclick="btn_añadir(event)"> Añadir Producto </button>
+            <div class="cabecera">
+                <button onclick="btn_añadir(event)"> Añadir Producto </button>
+                <button onclick="calculo(event)"> Recalcular Tabla </button>
+
+            </div>
             <table class="tabla" id="tabla">
 
                 <thead>
