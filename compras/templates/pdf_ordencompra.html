@@ -1,0 +1,27 @@
+<style>
+    .text-center {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .text-end {
+        text-align: right;
+    }
+
+    @media print {
+        @page {
+            size: letter portrait;
+        }
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+</style>
+<h3 class="text-center">Orden de Compra</h3>
+<h3>Orden N°: {{orden.numero}}</h3>

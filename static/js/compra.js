@@ -8,9 +8,9 @@ function calculo_dinero_restante() {
         total_subtotales += parseFloat(subtotales[i].textContent)
         var total = parseFloat(presupuesto.value) - total_subtotales
         var total_formateado = total.toFixed(2)
-        dinero_restante.value = total_formateado
+        dinero_restante.innerText = total_formateado
 
-        console.log(total)
+        
     }
 
     if (parseInt(dinero_restante.innerHTML) < 0) {

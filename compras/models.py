@@ -10,5 +10,5 @@ class Proveedor(models.Model):
 class OrdenDeCompra(models.Model):
     numero_orden= models.AutoField(primary_key=True)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, to_field="id")
-    descripcion = models.TextField(null=True)
+    archivo = models.FileField(null=True, upload_to='documents/ordenescompra')
     monto = models.BigIntegerField()
