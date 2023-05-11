@@ -70,6 +70,14 @@ a{
     background-color: rgba(100, 146, 245, 0.267);
     transition: all 0.3s;
 }
+.negativo{
+    background-color: rgba(245, 100, 100, 0.267) !important;
+    transition: all 0.3s;
+}
+.negativo:hover{
+    background-color: rgba(245, 100, 100, 0.267) !important;
+    transition: all 0.3s;
+}
 .elemento-cabecera a{
     margin: 10px;
     padding: 10px;

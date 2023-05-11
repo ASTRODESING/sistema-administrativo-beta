@@ -1,25 +1,25 @@
 function calculo_dinero_restante() {
     const presupuesto = document.getElementById("presupuesto")
-    const dinero_restante = document.getElementById("dinero_restante")
     const subtotales = document.getElementsByClassName("subtotales")
-    var total =0
+    var total_subtotales = 0
 
 
+    for (let i = 0; i < subtotales.length; i++) {
+        total_subtotales += parseFloat(subtotales[i].textContent)
+        var total = parseFloat(presupuesto.value) - total_subtotales
+        var total_formateado = total.toFixed(2)
+        dinero_restante.innerText = total_formateado
 
+        console.log(total)
+    }
 
-
-
-    presupuesto.addEventListener("keydown", function () {
-
-        for(let i = 0; i < subtotales.length; i++){
-            total += parseFloat(subtotales[i].textContent)
-            var total_formateado = total.toFixed(2)
-            dinero_restante.innerText = presupuesto - total_formateado
-        }
-
-
-    })
+    if(parseInt(dinero_restante.innerHTML) < 0 ){
+        dinero_restante.className = "negativo"
+    }else{
+        dinero_restante.className = ""
+    }
 }
+
 
 function btn_añadir(evt) {
     evt.preventDefault()
@@ -68,7 +68,7 @@ function btn_añadir(evt) {
 
     }
     celda_eliminar.appendChild(btn_eliminar)
-    celda_subtotal.className = `subtotal`
+    celda_subtotal.className = `subtotales`
     celda_subtotal.innerText = 1
 
     row.appendChild(celda_nombre)
@@ -82,26 +82,25 @@ function btn_añadir(evt) {
 
 
 
-function calculo(event){
+function calculo(event) {
     event.preventDefault()
     var precio = document.getElementsByClassName("precio")
     var cantidad = document.getElementsByClassName("cantidad")
     var subtotal_sin_formato = 0
 
 
-    for(let i = 0; i<cantidad.length; i++){
-        subtotal_sin_formato = parseFloat(cantidad[i].value)  * parseFloat(precio[i].value)
+    for (let i = 0; i < cantidad.length; i++) {
+        subtotal_sin_formato = parseFloat(cantidad[i].value) * parseFloat(precio[i].value)
         var subtotal_formateado = subtotal_sin_formato.toFixed(2)
         cantidad[i].parentNode.nextElementSibling.innerHTML = subtotal_formateado
 
 
 
     }
-
+    calculo_dinero_restante()
 
 }
 
 $(document).ready(function () {
     $('#buscador_proveedor').select2();
-    calculo_dinero_restante();
 });
