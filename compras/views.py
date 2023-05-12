@@ -39,12 +39,12 @@ def orden_compras(request):
             contador += 1
 
         total = int(request.POST["presupuesto"]) - subtotal_productos
-        template = get_template("pdf_ordendecompra.html")
+        template = get_template("pdf_ordencompra.html")
 
 
         nueva_orden_compra = OrdenDeCompra.objects.create(
-            proveedor = request.POST["proveedor_id"],
-            monto = total
+        proveedor = Proveedor.objects.get(pk=request.POST["proveedor_id"]),
+        monto = total
         )
         nueva_orden_compra.save()
 
@@ -59,8 +59,9 @@ def orden_compras(request):
 
         nueva_orden_compra.archivo.save(nombre ,file_object)
 
-        proveedores = Proveedor.objects.all()
-        return render(request, "ordencompra.html", {"proveedores": proveedores})
+        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response["Content-Disposition"] = 'attachment; filename="{}"'.format(nombre)
+        return response
 
 
 def añadir_proveedor(request):
