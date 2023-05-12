@@ -16,6 +16,7 @@ def orden_compras(request):
         return render(request, "ordencompra.html", {"proveedores": proveedores})
     else:
         datos = []
+        datos_generales = {}
         nombres = request.POST.getlist("nombre_producto")
         print(request.POST)
         precios = request.POST.getlist("precio")
@@ -38,19 +39,25 @@ def orden_compras(request):
 
             contador += 1
 
-        total = int(request.POST["presupuesto"]) - subtotal_productos
+        dinero_restante = int(request.POST["presupuesto"]) - subtotal_productos
         template = get_template("pdf_ordencompra.html")
+        datos_generales["fecha_actual"]= datetime.now()
+        datos_generales["nombre_proveedor"]= Proveedor.objects.get(pk=request.POST["proveedor_id"]).nombre
+        datos_generales["numero_telefono"]= Proveedor.objects.get(pk=request.POST["proveedor_id"]).numero_telefono
+        datos_generales["monto"]= subtotal_productos
+        datos_generales["presupuesto"]= request.POST["presupuesto"]
+
 
 
         nueva_orden_compra = OrdenDeCompra.objects.create(
         proveedor = Proveedor.objects.get(pk=request.POST["proveedor_id"]),
-        monto = total
+        monto =  subtotal_productos
         )
         nueva_orden_compra.save()
 
 
         html = template.render(
-            {"presupuesto": request.POST["presupuesto"], "datos": datos, "total": total, "orden":nueva_orden_compra}
+            {"datos": datos, "orden":nueva_orden_compra,"datos_generales":datos_generales}
         )
         pdf_file = HTML(string=html).write_pdf()
         file_object = BytesIO(pdf_file)
