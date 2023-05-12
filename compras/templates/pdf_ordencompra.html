@@ -2,6 +2,7 @@
     .Tabla{
         display: flex;
         width: 95%;
+        height: auto;
         margin: 10px;
         padding: 5px;
         border-radius: 20px;
@@ -17,14 +18,19 @@
         border-radius: 20px;
         border: 1px solid black;
     }
+    .Tabla table th{
+        border-radius: 20px;
+        border: 1px solid rgb(0, 0, 0);
+        padding: 8px;
+    }
     .Tabla table thead{
         width: 100%;
         height: 100%;
         border: 1px solid black;
     }
     .Tabla table tfoot{
-        font-size: small;
-        border: 1px solid black;
+        font-size: smaller;
+        background-color: rgb(179, 179, 179);
     }
 
     .cabecera{
@@ -78,10 +84,12 @@
         </thead>
         <tbody>
             {% for producto in datos %}
-            <th> {{producto.producto}}</th>
-            <th> {{producto.precio}}</th>
-            <th> {{producto.cantidad}}</th>
-            <th> {{producto.subtotal_producto}}</th>
+            <tr>
+                <th> {{producto.producto}}</th>
+                <th> {{producto.precio}}</th>
+                <th> {{producto.cantidad}}</th>
+                <th> {{producto.subtotal_producto}}</th>
+            </tr>
             {% endfor %}
         </tbody>
         <tfoot>
