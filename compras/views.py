@@ -1,9 +1,10 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.template.loader import get_template
 from .models import OrdenDeCompra, Proveedor
 from io import BytesIO
 from weasyprint import HTML
 from datetime import datetime
+import os
 
 # Create your views here.
 def panel(request):
@@ -18,7 +19,6 @@ def orden_compras(request):
         datos = []
         datos_generales = {}
         nombres = request.POST.getlist("nombre_producto")
-        print(request.POST)
         precios = request.POST.getlist("precio")
         cantidades = request.POST.getlist("cantidad")
         subtotal_productos = 0
@@ -87,3 +87,23 @@ def añadir_proveedor(request):
         except:
             status = "Ha ocurrido un error"
             return render(request, "añadir_proveedor.html", {"status": status})
+        
+def historico_ordenes_compra(request):
+    orden = OrdenDeCompra.objects.all()
+    return render(request, "historico_ordenes_compra.html", {"ordenes":orden})
+
+def get_pdf_orden(request, numero_orden):
+    orden = get_object_or_404(OrdenDeCompra, pk=numero_orden)
+    pdf = orden.archivo
+
+    nombre = os.path.splitext(os.path.basename(pdf.name))[0]
+    
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = 'attachment; filename="{}.pdf"'.format(nombre)
+    return response
+
+def delete_ordenes_compra(request, numero_orden):
+    orden = get_object_or_404(OrdenDeCompra, pk=numero_orden)
+    orden.delete()
+    return redirect("get_orden")
+

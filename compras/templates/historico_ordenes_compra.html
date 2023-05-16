@@ -1,0 +1,50 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+
+{% block content %}
+<script src="{% static 'js/jquery-3.5.1.js'%}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
+
+<link rel="stylesheet" href="{% static 'css/items.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<script src="{% static 'js/dataTables.bootstrap5.min.js'%}"></script>
+
+<script src="{% static 'js/items.js'%}"></script>
+
+
+
+    <div class="tablaFacturas">
+        <label class="Titulo c2">
+            <h1>Tabla Ordenes de Compra</h1>
+        </label>
+        <br>
+        <p>Has click en el nombre de la orden para visualizar</p>
+        <br>
+        <div class="table-responsive-sm ">
+            <table class="table  table-dark table-striped-columns table-bordered" id="tabla-prod">
+                <thead>
+                    <tr>
+                        <th class="centrado">Fecha Creación</th>
+                        <th class="centrado">Numero de Orden</th>
+                        <th class="centrado">Proveedor</th>
+                        <th class="centrado">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for orden in ordenes %}
+                    <tr>
+                        <th><a href="{% url 'get_orden_document' orden.numero_orden %}">{{orden.fecha_orden}}</a></th>
+                        <th><a href="{% url 'get_orden_document' orden.numero_orden %}">{{orden.numero_orden}}</a></th>
+                        <th><a href="{% url 'get_orden_document' orden.numero_orden %}">{{orden.proveedor.nombre}}</a></th>
+                        <th><a href="{% url 'delete_orden' orden.numero_orden %}"> <img src="{% static 'img/eliminar.svg'%}"></a></th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}
