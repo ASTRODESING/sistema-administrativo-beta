@@ -6,13 +6,14 @@ from io import BytesIO
 from weasyprint import HTML
 from datetime import datetime
 import os
+from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
+@login_required
 def panel(request):
     return render(request, "panel-compras.html")
 
-
+@login_required
 def orden_compras(request):
     if request.method == "GET":
         proveedores = Proveedor.objects.all()
@@ -77,7 +78,7 @@ def orden_compras(request):
         response["Content-Disposition"] = 'attachment; filename="{}"'.format(nombre)
         return response
 
-
+@login_required
 def añadir_proveedor(request):
     if request.method == "GET":
         return render(request, "añadir_proveedor.html")
@@ -95,12 +96,12 @@ def añadir_proveedor(request):
             status = "Ha ocurrido un error"
             return render(request, "añadir_proveedor.html", {"status": status})
 
-
+@login_required
 def historico_ordenes_compra(request):
     orden = OrdenDeCompra.objects.all()
     return render(request, "historico_ordenes_compra.html", {"ordenes": orden})
 
-
+@login_required
 def get_pdf_orden(request, numero_orden):
     try:
         orden = get_object_or_404(OrdenDeCompra, pk=numero_orden)
@@ -116,13 +117,13 @@ def get_pdf_orden(request, numero_orden):
             "<h1>Archivo no encontrado o se encuentra en otra dirección</h1>"
         )
 
-
+@login_required
 def delete_ordenes_compra(request, numero_orden):
     orden = get_object_or_404(OrdenDeCompra, pk=numero_orden)
     orden.delete()
     return redirect("get_orden")
 
-
+@login_required
 def proveedores(request):
     if request.method == "GET":
         get_proveedores = Proveedor.objects.all()
@@ -141,7 +142,7 @@ def proveedores(request):
             status = "A ocurrido un error"
             return render(request, "añadir_proveedor.html", {"status": status})
 
-
+@login_required
 def editar_proveedores(request, id_proveedor):
     get_proveedor = Proveedor.objects.get(pk=id_proveedor)
     if request.method =='GET':
@@ -158,6 +159,8 @@ def editar_proveedores(request, id_proveedor):
             status = "A ocurrido un error"
             return render(request, 'editproveedor.html', {'proveedor':get_proveedor, 'status':status})
 
-
+@login_required
 def eliminar_proveedores(request, id_proveedor):
-    pass
+    proveedor_eliminar = Proveedor.objects.get(pk=id_proveedor)
+    proveedor_eliminar.delete()
+    return redirect("proveedores")

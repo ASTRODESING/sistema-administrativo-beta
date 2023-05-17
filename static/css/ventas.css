@@ -37,7 +37,8 @@
     padding-left: 60px;
     padding-right: 60px;
     margin: 5px;
-    background: rgb(3,194,177);
+    background: rgba(255, 255, 255, 0.253);
+    border: 1px solid white;
     border-radius: 20px;
     transition: all 1s;
 }
@@ -52,7 +53,6 @@ a{
 }
 .btn-panel:hover{
 
-    background: rgb(3,194,177);
     transition: all 0.3s;
     box-shadow: 1px 1px 30px rgb(113, 25, 253);
 

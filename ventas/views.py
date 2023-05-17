@@ -8,12 +8,13 @@ from io import BytesIO
 from weasyprint import HTML
 from datetime import date
 from ventas.models import Cliente, Factura, FormasDePago
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def panel(request):
     return render(request, "panel-ventas.html")
 
-
+@login_required
 def caja(request):
     if request.method == "GET":
         productos = Producto.objects.all()
@@ -46,7 +47,7 @@ def caja(request):
 
         return imprimir_pdf(request)
 
-
+@login_required
 def imprimir_pdf(request):
     contenido = []
     total = {}
@@ -114,6 +115,8 @@ def imprimir_pdf(request):
     response["Content-Disposition"] = 'attachment; filename="{}"'.format(nombre)
     return response
 
+
+@login_required
 def get_factura(request, numero_factur):
     try:
         objeto = get_object_or_404(Factura, numero_factura=numero_factur)
@@ -127,7 +130,7 @@ def get_factura(request, numero_factur):
     except:
         return HttpResponseNotFound('<h1>Archivo no encontrado o se encuentra en otra dirección</h1>')
 
-
+@login_required
 def get_productos(request, id_producto):
     productos = Producto.objects.get(id=id_producto)
     data = {
@@ -138,12 +141,12 @@ def get_productos(request, id_producto):
     }
     return JsonResponse(data)
 
-
+@login_required
 def facturas(request):
     facturas = Factura.objects.all()
     return render(request, "facturas.html", {"facturas":facturas})
 
-
+@login_required
 def clientes(request):
     if request.method == 'GET':
         clientes = Cliente.objects.all()
@@ -163,7 +166,7 @@ def clientes(request):
             status = 'Ha Ocurrido un Error Intente de Nuevo'
             return render(request, "clientes.html",  {'status':status, "clientes":clientes})
 
-
+@login_required
 def nuevo_cliente(request):
     if request.method == "GET":
         return render(request, "nuevocliente.html")
@@ -179,12 +182,16 @@ def nuevo_cliente(request):
         except:
              status = 'Ha Ocurrido un Error Intente de Nuevo'
              return render(request, "nuevocliente.html",  {'status':status})
-        
+
+
+@login_required
 def elimnar_cliente(request, id_cliente):
     cliente = get_object_or_404(Cliente, pk=id_cliente)
     cliente.delete()
     return redirect('clientes')
 
+
+@login_required
 def edit_cliente(request, id_cliente):
     cliente = get_object_or_404(Cliente, pk=id_cliente)
 
