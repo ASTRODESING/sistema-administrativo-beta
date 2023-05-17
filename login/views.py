@@ -24,6 +24,7 @@ def inicio(request):
 
 @login_required
 def dashboard(request):
+    print(request.session)
     return render(request, "dashboard.html")
 
 @login_required
