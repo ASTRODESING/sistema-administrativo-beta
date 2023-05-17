@@ -1,40 +1,42 @@
 <style>
-    .Tabla{
+    .Tabla {
         display: flex;
         width: 95%;
         height: auto;
         margin: 10px;
         padding: 5px;
         border-radius: 20px;
-        background-color: rgb(175, 175, 175);
         align-items: center;
         justify-content: center;
         text-align: center;
     }
-    .Tabla table{
+
+    .Tabla table {
         width: 95%;
-        height: 100%;
         margin-left: 13px;
         border-radius: 20px;
         border: 1px solid black;
     }
-    .Tabla table th{
+
+    .Tabla table th {
         overflow: hidden;
         padding: 8px;
     }
-    .Tabla table thead{
+
+    .Tabla table thead {
         width: 100%;
         height: 100%;
         border: 1px solid black;
     }
-    .Tabla table tfoot{
+
+    .Tabla table tfoot {
         overflow: hidden;
         padding-top: 20px;
         font-size: smaller;
         background-color: rgb(112, 112, 112);
     }
 
-    .cabecera{
+    .cabecera {
         width: 95%;
         height: 50px;
         margin: 20px;
@@ -44,6 +46,7 @@
         justify-content: space-around;
         border-radius: 50px;
     }
+
     .text-center {
         text-align: center;
         font-weight: bold;
@@ -68,37 +71,38 @@
         vertical-align: baseline;
     }
 </style>
-<div class="cabecera">
-    <h3 class="text-center">Orden de Compra</h3>
-    <h3>Orden N°: {{orden.numero_orden}}</h3>
-</div>
-<p>Fecha: {{datos_generales.fecha_actual}}</p>
-<p>Nombre del proveedor: {{datos_generales.nombre_proveedor}}</p>
-<p>Numero de telefono del proveedor: {{datos_generales.numero_telefono}}</p>
-<div class="Tabla">
-    <table>
-        <thead>
-            <th> Nombre</th>
-            <th> Precio</th>
-            <th> Cantidad</th>
-            <th> Subtotal Producto</th>
-        </thead>
-        <tbody>
-            {% for producto in datos %}
-            <tr>
-                <th> {{producto.producto}}</th>
-                <th> {{producto.precio}}</th>
-                <th> {{producto.cantidad}}</th>
-                <th> {{producto.subtotal_producto}}</th>
-            </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <th>MONTO TOTAL A GASTAR:</th>
-            <th> {{datos_generales.monto}}</th>
-            <th>PRESUPUESTO:</th>
-            <th> {{datos_generales.presupuesto}}</th>
-        </tfoot>
-    </table>
-
+<div class="contenedor">
+    <div class="Tabla">
+        <table>
+            <thead>
+                <th> Nombre</th>
+                <th> Precio</th>
+                <th> Cantidad</th>
+                <th> Subtotal Producto</th>
+            </thead>
+            <tbody>
+                {% for producto in datos %}
+                <tr>
+                    <th> {{producto.producto}}</th>
+                    <th> {{producto.precio}}</th>
+                    <th> {{producto.cantidad}}</th>
+                    <th> {{producto.subtotal_producto}}</th>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <th>MONTO TOTAL A GASTAR:</th>
+                <th> {{datos_generales.monto}}</th>
+                <th>PRESUPUESTO:</th>
+                <th> {{datos_generales.presupuesto}}</th>
+            </tfoot>
+        </table>
+    </div>
+    <div class="cabecera">
+        <h3 class="text-center">Orden de Compra</h3>
+        <h3>Orden N°: {{orden.numero_orden}}</h3>
+    </div>
+    <p>Fecha: {{datos_generales.fecha_actual}}</p>
+    <p>Nombre del proveedor: {{datos_generales.nombre_proveedor}}</p>
+    <p class="page-break">Numero de telefono del proveedor: {{datos_generales.numero_telefono}}</p>
 </div>
