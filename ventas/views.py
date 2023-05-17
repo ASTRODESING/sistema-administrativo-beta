@@ -1,6 +1,6 @@
 import os
 from datetime import datetime 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseNotFound
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.template.loader import get_template
 from items.models import Producto
@@ -115,15 +115,17 @@ def imprimir_pdf(request):
     return response
 
 def get_factura(request, numero_factur):
+    try:
+        objeto = get_object_or_404(Factura, numero_factura=numero_factur)
+        pdf_file = objeto.documento
 
-    objeto = get_object_or_404(Factura, numero_factura=numero_factur)
-    pdf_file = objeto.documento
+        nombre = os.path.splitext(os.path.basename(pdf_file.name))[0]
 
-    nombre = os.path.splitext(os.path.basename(pdf_file.name))[0]
-
-    response = HttpResponse(pdf_file, content_type="application/pdf")
-    response["Content-Disposition"] = 'attachment; filename="{}.pdf"'.format(nombre)
-    return response
+        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response["Content-Disposition"] = 'attachment; filename="{}.pdf"'.format(nombre)
+        return response
+    except:
+        return HttpResponseNotFound('<h1>Archivo no encontrado o se encuentra en otra dirección</h1>')
 
 
 def get_productos(request, id_producto):

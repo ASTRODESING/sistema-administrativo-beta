@@ -24,12 +24,10 @@ def Inventario(request):
             )
             prod.save()
 
-            # Aumenta el numero de cantidad comprada en base al de stock
             producto = Producto.objects.get(nombre=request.POST["nombre"])
             stock_actual = producto.stock
             producto.cantidad_comprada += stock_actual
             producto.save()
-            # --------------------------------------------
             sucess = "Guardado con Exito"
             return render(
                 request, "inventario.html", {"status": sucess, "productos": productos,  "categorias":categorias}

@@ -1,0 +1,73 @@
+{% extends 'base_sesion2.html' %}
+{% load static %}
+
+{% block content %}
+<script src="{% static 'js/jquery-3.5.1.js'%}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
+
+<link rel="stylesheet" href="{% static 'css/items.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<script src="{% static 'js/dataTables.bootstrap5.min.js'%}"></script>
+
+<script src="{% static 'js/items.js'%}"></script>
+
+
+<div class="content">
+    <form method="POST">
+        <div class="añadirCliente">
+            <label class="Titulo">
+                <h1>Añadir Proveedor</h1>
+            </label>
+            {% csrf_token %}
+            <p>{{status}}</p>
+            <p>Nombre</p>
+            <input class="entradaDatos" type="text" name="nombre" id="nombre" placeholder="Ingrese nombre proveedor">
+            <p>Direccion</p>
+            <input class="entradaDatos" type="text" name="direccion" id="direccion" placeholder="Ingrese direccion proveedor">
+            <p> Telefono </p>
+            <p> Recuerda Colocar solo 11 digitos </p>
+            <input class="entradaDatos" type="number" name="telefono" id="telefono" maxlength="11" placeholder="Telefono">
+
+            <div class="botones">
+                <input class="anadir" type="submit" value=" Agregar ">
+            </div>
+
+
+        </div>
+    </form>
+
+    <div class="tablaProductos">
+        <label class="Titulo c2">
+            <h1>Tabla Proveedores</h1>
+        </label>
+        <br>
+        <p>Has click en el nombre del proveedor para editar</p>
+        <br>
+        <div class="table-responsive-sm ">
+            <table class="table  table-dark table-striped-columns table-bordered" id="tabla-prod">
+                <thead>
+                    <tr>
+                        <th class="centrado">Nombre</th>
+                        <th class="centrado">Direccion</th>
+                        <th class="centrado">Numero de Telefono</th>
+                        <th class="centrado">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for proveedor in proveedores %}
+                    <tr>
+                        <th><a href="{% url 'proveedores_editar' proveedor.id %}">{{proveedor.nombre}}</a></th>
+                        <th><a href="{% url 'proveedores_editar' proveedor.id %}"">{{proveedor.direccion}}</a></th>
+                        <th><a href="{% url 'proveedores_editar' proveedor.id %}"">{{proveedor.numero_telefono}}</a></th>
+                        <th><a href="{% url 'proveedores_eliminar' proveedor.id %}"> <img src="{% static 'img/eliminar.svg'%}"></a></th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+            
+    </div>
+</div>
+
+{% endblock %}

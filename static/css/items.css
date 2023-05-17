@@ -160,8 +160,7 @@ option {
     display: flex;
     margin-top: 120px;
     width: auto;
-    height: 100%;
-    flex-wrap: wrap;
+    height: auto;
     flex-direction: column;
     color: white;
     border: 1px solid #fff;
