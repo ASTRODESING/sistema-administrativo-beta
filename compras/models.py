@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from datetime import date
 
 # Create your models here.
 class Proveedor(models.Model):
@@ -20,3 +21,10 @@ class OrdenDeCompra(models.Model):
 
     def __str__(self) -> str:
         return self.numero_orden
+    
+class Perdida(models.Model):
+    
+    año = models.IntegerField(default= date.today().year, primary_key=True)
+    mes = models.IntegerField(default= date.today().month, primary_key=True)
+    dia = models.IntegerField(default= date.today().day, primary_key=True)
+    perdida = models.BigIntegerField(null=True)

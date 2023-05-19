@@ -1,27 +1,50 @@
-.columna{
+.columna {
     width: 100%;
     margin-top: 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.fila{
+
+.fila {
     width: 98%;
     height: auto;
     display: flex;
     flex-direction: row;
     margin: 10px;
 }
+
 @media screen and (max-width:725px) {
-    .fila{
+    .fila {
         flex-wrap: wrap;
     }
 }
 
-.contenedor{
-    background: rgba(0, 184, 138, 0.486);
-    box-shadow: 0px 0px 20px #000;
+.contenedor {
+    background: rgba(0, 187, 255, 0.493);
+    background: linear-gradient(180deg, rgba(0, 187, 255, 0.397) 0%, rgba(0, 25, 105, 0.144) 100%);
+    box-shadow: 0px 0px 20px rgba(0, 187, 255, 0.178);
+    border-radius: 50px;
+    backdrop-filter: blur(20px);
     width: 100%;
     height: auto;
     margin: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contenedor h1 {
+    color: #fff;
+    font-size: medium;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.anuncio{
+    background: rgb(0,255,175);
+    background: linear-gradient(180deg, rgba(0,255,175,0.5690651260504201) 0%, rgba(0,105,54,0.2553396358543417) 100%);
+}
+.advertencia{
+    background: rgb(255,0,0);
+    background: linear-gradient(180deg, rgba(255,0,0,0.5690651260504201) 0%, rgba(105,0,0,0.2553396358543417) 100%);
 }

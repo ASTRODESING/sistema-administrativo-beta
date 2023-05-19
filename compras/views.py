@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.http import HttpResponseNotFound
 from django.template.loader import get_template
-from .models import OrdenDeCompra, Proveedor
+from .models import OrdenDeCompra, Perdida, Proveedor
 from io import BytesIO
 from weasyprint import HTML
 from datetime import datetime
@@ -42,7 +42,6 @@ def orden_compras(request):
 
             contador += 1
 
-        dinero_restante = int(request.POST["presupuesto"]) - subtotal_productos
         template = get_template("pdf_ordencompra.html")
         datos_generales["fecha_actual"] = datetime.now()
         datos_generales["nombre_proveedor"] = Proveedor.objects.get(
@@ -59,6 +58,10 @@ def orden_compras(request):
             monto=subtotal_productos,
         )
         nueva_orden_compra.save()
+        nueva_perdida = Perdida.objects.create(
+        perdida = subtotal_productos
+        )
+        nueva_perdida.save()
 
         html = template.render(
             {
