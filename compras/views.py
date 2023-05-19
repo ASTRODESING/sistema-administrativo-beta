@@ -7,6 +7,7 @@ from weasyprint import HTML
 from datetime import datetime
 import os
 from django.contrib.auth.decorators import login_required
+from datetime import date
 
 
 @login_required
@@ -58,10 +59,14 @@ def orden_compras(request):
             monto=subtotal_productos,
         )
         nueva_orden_compra.save()
-        nueva_perdida = Perdida.objects.create(
-        perdida = subtotal_productos
-        )
-        nueva_perdida.save()
+
+        try:
+            nueva_perdida =  Perdida.objects.get(año=date.today().year,mes=date.today().month,dia=date.today().day)
+            nueva_perdida.perdida = datos_generales["monto"]
+        except:
+            nueva_perdida = Perdida.objects.create(
+                perdida=datos_generales["monto"]
+            )
 
         html = template.render(
             {

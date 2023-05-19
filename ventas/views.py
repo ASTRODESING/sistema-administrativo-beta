@@ -7,7 +7,7 @@ from items.models import Producto
 from io import BytesIO
 from weasyprint import HTML
 from datetime import date
-from ventas.models import Cliente, Factura, FormasDePago, Ganancias
+from ventas.models import Cliente, Factura, FormasDePago, Ganancias, NumeroDeClientes
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -99,13 +99,25 @@ def imprimir_pdf(request):
         forma_de_pago = FormasDePago.objects.get(forma=request.POST["forma_de_pago"])
 
     )
-    nueva_ganancia = Ganancias.objects.create(
-        ganacia= total["total"]
-    )
 
-    nueva_ganancia.save()
-    nueva_factura.save()
+    try:
+        actualizar_ganancias = Ganancias.objects.get(año=date.today().year,mes=date.today().month,dia=date.today().day) 
+        actualizar_ganancias.ganancia += total["total"]
+        actualizar_ganancias.save()
+
+        actualizar_numero_clientes = NumeroDeClientes.objects.get(año=date.today().year,mes=date.today().month,dia=date.today().day)
+        actualizar_numero_clientes.numero_clientes += 1
+    except:
+        actualizar_ganancias = Ganancias.objects.create(
+            ganancia= total["total"]
+        )
+        actualizar_numero_clientes = NumeroDeClientes.objects.create(
+            numero_clientes = 1
+        )
     
+
+    nueva_factura.save()
+
     datos["numero_factura"] = nueva_factura.numero_factura
 
     template = get_template("pdf.html")

@@ -31,7 +31,13 @@ class Factura(models.Model):
 
 class Ganancias(models.Model):
     
-    año = models.IntegerField(default= date.today().year, primary_key=True)
-    mes = models.IntegerField(default= date.today().month, primary_key=True)
-    dia = models.IntegerField(default= date.today().day, primary_key=True)
-    ganacia = models.BigIntegerField(null=True)
+    año = models.IntegerField(default= date.today().year)
+    mes = models.IntegerField(default= date.today().month)
+    dia = models.IntegerField(default= date.today().day)
+    ganancia = models.BigIntegerField(null=True)
+
+class NumeroDeClientes(models.Model):
+    año = models.IntegerField(default= date.today().year)
+    mes = models.IntegerField(default= date.today().month)
+    dia = models.IntegerField(default= date.today().day)
+    numero_clientes = models.BigIntegerField(null=True)

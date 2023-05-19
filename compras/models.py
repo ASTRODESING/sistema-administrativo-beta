@@ -13,7 +13,7 @@ class Proveedor(models.Model):
         return self.nombre
 
 class OrdenDeCompra(models.Model):
-    numero_orden= models.AutoField(primary_key=True)
+    numero_orden= models.BigAutoField(primary_key=True)
     fecha_orden = models.DateField( default=timezone.now)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, to_field="id")
     archivo = models.FileField(null=True, upload_to='documents/ordenescompra')
@@ -24,7 +24,7 @@ class OrdenDeCompra(models.Model):
     
 class Perdida(models.Model):
     
-    año = models.IntegerField(default= date.today().year, primary_key=True)
-    mes = models.IntegerField(default= date.today().month, primary_key=True)
-    dia = models.IntegerField(default= date.today().day, primary_key=True)
+    año = models.IntegerField(default= date.today().year)
+    mes = models.IntegerField(default= date.today().month)
+    dia = models.IntegerField(default= date.today().day)
     perdida = models.BigIntegerField(null=True)
