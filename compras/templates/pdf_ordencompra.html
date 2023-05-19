@@ -1,108 +1,182 @@
 <style>
-    .Tabla {
+    @page {
+        margin: 2cm;
+    }
+
+    html {
+        color: #14213d;
+        font-size: 11pt;
+        line-height: 1.6;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    h1 {
+        color: #035496;
+        font-size: 20pt;
+        margin: 0;
+    }
+
+    aside {
         display: flex;
-        width: 95%;
-        height: auto;
-        margin: 10px;
-        padding: 5px;
-        border-radius: 20px;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
+        margin: 1em 0 2em;
     }
 
-    .Tabla table {
-        width: 95%;
-        margin-left: 13px;
-        border-radius: 20px;
-        border: 1px solid black;
+    aside address {
+        font-style: normal;
+        white-space: pre-line;
     }
 
-    .Tabla table th {
-        overflow: hidden;
-        padding: 8px;
+    aside address#from {
+        color: rgb(0, 0, 0);
+        flex: 1;
     }
 
-    .Tabla table thead {
+    aside address#to {
+        text-align: right;
+        color: rgb(0, 0, 0);
+    }
+
+    dl {
+        position: absolute;
+        right: 0;
+        text-align: right;
+        top: 0;
+    }
+
+    dt,
+    dd {
+        display: inline;
+        margin: 0;
+    }
+
+    dt {
+        color: rgb(87, 87, 87);
+    }
+
+    dt::before {
+        content: '';
+        display: block;
+    }
+
+    dt::after {
+        content: ':';
+    }
+
+    table {
+        border-collapse: collapse;
         width: 100%;
-        height: 100%;
-        border: 1px solid black;
     }
 
-    .Tabla table tfoot {
-        overflow: hidden;
-        padding-top: 20px;
-        font-size: smaller;
-        background-color: rgb(112, 112, 112);
+    th {
+        border-bottom: .2mm solid #a9a;
+        color: #a9a;
+        font-size: 10pt;
+        font-weight: 400;
+        padding-bottom: .25cm;
+        text-transform: uppercase;
     }
 
-    .cabecera {
-        width: 95%;
-        height: 50px;
-        margin: 20px;
-        display: flex;
-        background-color: rgb(170, 170, 170);
-        align-items: center;
-        justify-content: space-around;
-        border-radius: 50px;
+    td {
+        padding-top: 4mm;
     }
 
-    .text-center {
-        text-align: center;
+    td:last-of-type {
+        color: #035496;
         font-weight: bold;
-    }
-
-    .text-end {
         text-align: right;
     }
 
-    @media print {
-        @page {
-            size: letter portrait;
-        }
+    th,
+    td {
+        text-align: center;
     }
 
-    * {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        font-size: 100%;
-        font: inherit;
-        vertical-align: baseline;
+    th:first-of-type,
+    td:first-of-type {
+        text-align: left;
+    }
+
+    th:last-of-type,
+    td:last-of-type {
+        text-align: right;
+    }
+
+    table#total {
+        background: #f6f6f6;
+        border-color: #f6f6f6;
+        border-style: solid;
+        border-width: 2cm 3cm;
+        bottom: 0;
+        font-size: 20pt;
+        margin: 0 -3cm;
+        position: absolute;
+        width: 18cm;
     }
 </style>
-<div class="contenedor">
-    <div class="Tabla">
-        <table>
-            <thead>
-                <th> Nombre</th>
-                <th> Precio</th>
-                <th> Cantidad</th>
-                <th> Subtotal Producto</th>
-            </thead>
-            <tbody>
-                {% for producto in datos %}
-                <tr>
-                    <th> {{producto.producto}}</th>
-                    <th> {{producto.precio}}</th>
-                    <th> {{producto.cantidad}}</th>
-                    <th> {{producto.subtotal_producto}}</th>
-                </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Orden de compra></title>
+    <meta name="description" content="orden de compra">
+</head>
+
+
+<body>
+    <h1>ORDEN DE COMPRA</h1>
+
+    <aside>
+        <address id="from">
+            Orden N°: {{orden.numero_orden}}
+            Fecha: {{datos_generales.fecha_actual}}
+        </address>
+
+        <address id="to">
+            Nombre del proveedor: {{datos_generales.nombre_proveedor}}
+            Numero de telefono del proveedor: {{datos_generales.numero_telefono}}
+        </address>
+    </aside>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal Producto</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for producto in datos %}
+            <tr>
+                <td> {{producto.producto}}</td>
+                <td> {{producto.precio}}</td>
+                <td> {{producto.cantidad}}</td>
+                <td> {{producto.subtotal_producto}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table id="total">
+        <thead>
+            <tr>
                 <th>MONTO TOTAL A GASTAR:</th>
-                <th> {{datos_generales.monto}}</th>
                 <th>PRESUPUESTO:</th>
-                <th> {{datos_generales.presupuesto}}</th>
-            </tfoot>
-        </table>
-    </div>
-    <div class="cabecera">
-        <h3 class="text-center">Orden de Compra</h3>
-        <h3>Orden N°: {{orden.numero_orden}}</h3>
-    </div>
-    <p>Fecha: {{datos_generales.fecha_actual}}</p>
-    <p>Nombre del proveedor: {{datos_generales.nombre_proveedor}}</p>
-    <p class="page-break">Numero de telefono del proveedor: {{datos_generales.numero_telefono}}</p>
-</div>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> {{datos_generales.monto}}</td>
+                <td> {{datos_generales.presupuesto}}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

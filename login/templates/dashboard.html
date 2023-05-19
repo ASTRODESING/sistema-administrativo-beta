@@ -1,6 +1,26 @@
 {% extends 'base_sesion2.html' %}
 {% block content %}
+{% load static %}
 
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<div class="columna">
+    <div class="fila">
+        <div class="contenedor">
+            <h1> Clientes </h1>
+            {% for cliente in clientes%}
+            
+            {% endfor %}
+        </div>
+        <div class="contenedor">
+
+        </div>
+    </div>
+    <div class="fila">
+        <div class="contenedor"></div>
+        <div class="contenedor"></div>
+    </div>
+</div>
 
 
 {% endblock%}
