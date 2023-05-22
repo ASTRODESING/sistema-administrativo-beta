@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
-from compras.models import OrdenDeCompra, Proveedor, Perdida
+from compras.models import Perdida
 from items.models import Producto
-from ventas.models import Cliente, Ganancias, NumeroDeClientes
+from ventas.models import Ganancias, NumeroDeClientes
+from .models import PrecioDolar
 from datetime import date
 from django.db.models import Max, Sum
 
@@ -59,18 +60,35 @@ def dashboard(request):
     ganancias_mensual = Ganancias.objects.filter(mes=date.today().month).aggregate(Sum('ganancia'))
     perdida_mensual = Perdida.objects.filter(mes=date.today().month).aggregate(Sum('perdida'))
     clientes_mensual = NumeroDeClientes.objects.filter(mes=date.today().month).aggregate(Sum('numero_clientes'))
+    precio_dolar = PrecioDolar.objects.all().first()
 
+    if request.method == 'GET':
+        return render(
+            request,
+            "dashboard.html",
+            {
+                'ganancia_mensual':ganancias_mensual['ganancia__sum'],
+                'perdida_mensual': perdida_mensual['perdida__sum'],
+                'cliente_mensual': clientes_mensual['numero_clientes__sum'],
+                'producto_mas_vendido':producto,
+                'precio_dolar':precio_dolar
+            },
+        )
+    else:
+        precio_dolar.precio = float(request.POST['preciodolar'])
+        precio_dolar.save()
+        return render(
+            request,
+            "dashboard.html",
+            {
+                'ganancia_mensual':ganancias_mensual['ganancia__sum'],
+                'perdida_mensual': perdida_mensual['perdida__sum'],
+                'cliente_mensual': clientes_mensual['numero_clientes__sum'],
+                'producto_mas_vendido':producto,
+                'precio_dolar':precio_dolar
+            },
+        )
 
-    return render(
-        request,
-        "dashboard.html",
-        {
-            'ganancia_mensual':ganancias_mensual['ganancia__sum'],
-            'perdida_mensual': perdida_mensual['perdida__sum'],
-            'cliente_mensual': clientes_mensual['numero_clientes__sum'],
-            'producto_mas_vendido':producto
-        },
-    )
 
 
 @login_required

@@ -21,6 +21,10 @@
                     Anadir</button>
         </div>
         <div class="buscador">
+            <label for=""> Precio Dolar </label>
+            <label id="preciodolar"> {{precio_dolar.precio}}</label>
+        </div>
+        <div class="buscador">
             <label for=""> Buscador por Codigo de Barra</label>
             <select id="buscador_codigo" class="buscador-codigo" name="state">
                 {% for producto in productos%}
@@ -64,7 +68,10 @@
         </div>
         <div class="buscador">
             <h2 class="total"> TOTAL </h2>
-            <h1 id="total" class="total">0</h1>
+            <div class="fila">
+                <h1 id="total" class="total">0</h1>
+                <h1 id="total-bolivares" class="total">0</h1>
+            </div>
             <button onclick="calculo_total(event)" class="anadir btn_total">Recalcular</button>
             <button type="submit" class="anadir btn_eliminar">Imprimir Factura</button>
         </div>

@@ -9,6 +9,7 @@ from weasyprint import HTML
 from datetime import date
 from ventas.models import Cliente, Factura, FormasDePago, Ganancias, NumeroDeClientes
 from django.contrib.auth.decorators import login_required
+from login.models import PrecioDolar
 
 @login_required
 def panel(request):
@@ -20,6 +21,7 @@ def caja(request):
         productos = Producto.objects.all()
         clientes = Cliente.objects.all()
         formas_de_pago = FormasDePago.objects.all()
+        precio_dolar = PrecioDolar.objects.all().first
 
         return render(
             request,
@@ -28,6 +30,7 @@ def caja(request):
                 "productos": productos,
                 "clientes": clientes,
                 "formas_de_pagos": formas_de_pago,
+                "precio_dolar": precio_dolar
             },
         )
     else:
@@ -49,6 +52,7 @@ def caja(request):
 
 @login_required
 def imprimir_pdf(request):
+    precio_dolar = PrecioDolar.objects.all().first()
     contenido = []
     total = {}
     datos = {}
@@ -62,12 +66,12 @@ def imprimir_pdf(request):
         producto_stock = productos_lista.getlist("stock")
 
         producto = Producto.objects.get(nombre=p)
-        subtotal_raw = float(producto.precio_venta) * float(producto_stock[contador])
+        subtotal_raw = (float(producto.precio_venta) * float(producto_stock[contador])) * precio_dolar.precio
 
         contenido.append(
             {
                 "nombre": p,
-                "precio": producto.precio_venta,
+                "precio": float(producto.precio_venta) * precio_dolar.precio,
                 "cantidad": producto_stock[contador],
                 "subtotal": round(subtotal_raw, 2),
                 "excento": producto.exento_de_impuesto,

@@ -222,11 +222,12 @@ function calculo() {
 
 function calculo_total(evt) {
     evt.preventDefault();
+
+    var precio_dolar = document.getElementById('preciodolar').innerHTML;
     var fila_productos = document.getElementById("tabla_productos");
     var subtotal = fila_productos.getElementsByClassName("subtotal");
 
     var total = 0
-
     for (let i = 0; i < subtotal.length; i++) {
 
             total += parseFloat(subtotal[i].textContent);
@@ -235,6 +236,7 @@ function calculo_total(evt) {
 
 
     }
-    document.getElementById('total').innerHTML = total_formateado
+    document.getElementById('total').innerHTML = String(total_formateado) + "$"
+    document.getElementById('total-bolivares').innerHTML = "Bs. " +(total * parseFloat(precio_dolar)).toFixed(2)
 }
 

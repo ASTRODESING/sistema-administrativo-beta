@@ -39,16 +39,16 @@
 <br>
 
 {% for productos in contenido %}
-<p>{{productos.cantidad}} * {{productos.precio}}$</p>
+<p>{{productos.cantidad}} * Bs. {{productos.precio}}</p>
 <p>{{productos.nombre}}</p>
-<p class="text-end">{{productos.subtotal}}$</p>
+<p class="text-end">Bs. {{productos.subtotal}}</p>
 {% endfor %}
 <p>-----------------------------------------------------------------</p>
 
-<p>EXENTO = {{total.total_excento}}$</p>
-<p>IVA = {{total.iva}}$</p>
-<p>SUBTOTAL CON IVA = {{total.subtotal_sin_excento_con_iva}}$</p>
+<p>EXENTO =Bs. {{total.total_excento}}</p>
+<p>IVA = Bs. {{total.iva}}</p>
+<p>SUBTOTAL CON IVA = Bs. {{total.subtotal_sin_excento_con_iva}}</p>
 <p>-----------------------------------------------------------------</p>
-<p>TOTAL = {{total.total}}$</p>
+<p>TOTAL = Bs. {{total.total}}</p>
 </body>
 

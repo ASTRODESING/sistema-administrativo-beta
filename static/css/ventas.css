@@ -138,3 +138,8 @@ a{
 .select2-selection__renderede{
     margin: 10px !important ;
 }
+.fila{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around   ;
+}
