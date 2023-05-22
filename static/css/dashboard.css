@@ -29,6 +29,7 @@
     width: 100%;
     height: auto;
     margin: 5px;
+    padding: 6px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -40,11 +41,24 @@
     padding-top: 5px;
     padding-bottom: 5px;
 }
+.contenedor p {
+    color: rgb(68, 228, 129);
+    font-size: medium;
+}
 .anuncio{
     background: rgb(0,255,175);
     background: linear-gradient(180deg, rgba(0,255,175,0.5690651260504201) 0%, rgba(0,105,54,0.2553396358543417) 100%);
+    box-shadow: 0px 0px 20px rgba(0, 255, 157, 0.178);
 }
 .advertencia{
     background: rgb(255,0,0);
     background: linear-gradient(180deg, rgba(255,0,0,0.5690651260504201) 0%, rgba(105,0,0,0.2553396358543417) 100%);
+    box-shadow: 0px 0px 20px rgba(255, 0, 0, 0.178);
+}
+.advertencia p{
+    color: rgb(240, 118, 118);
+    font-size: medium;
+}
+.producto{
+    font-size: smaller !important;
 }

@@ -6,7 +6,7 @@ from compras.models import OrdenDeCompra, Proveedor, Perdida
 from items.models import Producto
 from ventas.models import Cliente, Ganancias, NumeroDeClientes
 from datetime import date
-
+from django.db.models import Max, Sum
 
 def login_sesion(request):
     if request.method == "GET":
@@ -54,19 +54,21 @@ def inicio(request):
 
 @login_required
 def dashboard(request):
-    proveedores = Proveedor.objects.all()
-    clientes = Cliente.objects.all()
-    ordenes_de_compra = OrdenDeCompra.objects.all()
-    productos = Producto.objects.all()
+    producto_mas_vendido = Producto.objects.aggregate(Max('cantidad_vendida'))
+    producto = Producto.objects.filter(cantidad_vendida = producto_mas_vendido['cantidad_vendida__max']).first()
+    ganancias_mensual = Ganancias.objects.filter(mes=date.today().month).aggregate(Sum('ganancia'))
+    perdida_mensual = Perdida.objects.filter(mes=date.today().month).aggregate(Sum('perdida'))
+    clientes_mensual = NumeroDeClientes.objects.filter(mes=date.today().month).aggregate(Sum('numero_clientes'))
+
 
     return render(
         request,
         "dashboard.html",
         {
-            "proveedores": proveedores,
-            "clientes": clientes,
-            "ordenesdecompra": ordenes_de_compra,
-            "productos": productos
+            'ganancia_mensual':ganancias_mensual['ganancia__sum'],
+            'perdida_mensual': perdida_mensual['perdida__sum'],
+            'cliente_mensual': clientes_mensual['numero_clientes__sum'],
+            'producto_mas_vendido':producto
         },
     )
 
