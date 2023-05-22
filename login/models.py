@@ -9,3 +9,9 @@ class Usuario(User):
 
 class PrecioDolar(models.Model):
     precio= models.FloatField(default=1)
+
+class DatosEmpresa(models.Model):
+    nombre = models.CharField(max_length=255)
+    direccion = models.TextField()
+    telefono = models.IntegerField()
+    correo = models.EmailField()

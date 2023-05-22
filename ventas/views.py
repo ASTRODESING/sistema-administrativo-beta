@@ -9,7 +9,7 @@ from weasyprint import HTML
 from datetime import date
 from ventas.models import Cliente, Factura, FormasDePago, Ganancias, NumeroDeClientes
 from django.contrib.auth.decorators import login_required
-from login.models import PrecioDolar
+from login.models import PrecioDolar, DatosEmpresa
 
 @login_required
 def panel(request):
@@ -53,6 +53,7 @@ def caja(request):
 @login_required
 def imprimir_pdf(request):
     precio_dolar = PrecioDolar.objects.all().first()
+    datos_empresa = DatosEmpresa.objects.all().first()
     contenido = []
     total = {}
     datos = {}
