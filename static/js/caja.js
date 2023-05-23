@@ -1,6 +1,11 @@
 $(document).ready(function () {
-    $('.buscador-etiqueta').select2();
-    $('.buscador-codigo').select2();
+
+    var $evento_etiqueta = $('.buscador-etiqueta').select2();
+    $evento_etiqueta.on('change', function () { anadirProductoEtiqueta() })
+
+    var $evento_codigo = $('.buscador-codigo').select2();
+    $evento_codigo.on('change', function () { anadirProductoCodigo() })
+
     $('#forma_de_pago').select2();
     $('#cliente').select2();
 
@@ -60,13 +65,13 @@ function anadirProductoEtiqueta() {
         }
         celda_eliminar.appendChild(btn_eliminar)
 
-                
-        if (datos.excento == true){
+
+        if (datos.excento == true) {
             var celda_excento = document.createElement("th")
             celda_excento.textContent = true
             celda_subtotal.textContent = cantidad.value * datos.precio
         }
-        else{
+        else {
             var celda_excento = document.createElement("th")
             celda_excento.textContent = false
             var iva = (cantidad.value * datos.precio) * 0.16
@@ -142,13 +147,13 @@ function anadirProductoCodigo() {
 
         celda_eliminar.appendChild(btn_eliminar)
 
-                
-        if (datos.excento == true){
+
+        if (datos.excento == true) {
             var celda_excento = document.createElement("th")
             celda_excento.textContent = true
             celda_subtotal.textContent = cantidad.value * datos.precio
         }
-        else{
+        else {
             var celda_excento = document.createElement("th")
             celda_excento.textContent = false
             var iva = (cantidad.value * datos.precio) * 0.16
@@ -180,39 +185,39 @@ function calculo() {
 
         var input_cantidad = inputs_cantidad[contador];
 
-            input_cantidad.addEventListener("keyup", function () {
-                if (this.parentNode.nextElementSibling.nextElementSibling.innerHTML == 'true'){
-                    var cantidad = parseFloat(this.value);
+        input_cantidad.addEventListener("keyup", function () {
+            if (this.parentNode.nextElementSibling.nextElementSibling.innerHTML == 'true') {
+                var cantidad = parseFloat(this.value);
 
-                    var precio = parseFloat(this.parentNode.previousElementSibling.innerHTML);
-
-    
-                    var subtotal = cantidad * precio;
-                    var subtotal_formateado = subtotal.toFixed(2)
-    
-                    this.parentNode.nextElementSibling.innerHTML = subtotal_formateado;
-
-                } else{
-
-                    var cantidad = parseFloat(this.value);
-
-                    var precio = parseFloat(this.parentNode.previousElementSibling.innerHTML);
-    
-    
-                    var subtotal = cantidad * precio;
-                    var subtotal_iva = subtotal * 0.16
-                    var subtotal_sinformato = subtotal + subtotal_iva
-                    var subtotal_formateado = subtotal_sinformato.toFixed(2)
+                var precio = parseFloat(this.parentNode.previousElementSibling.innerHTML);
 
 
-    
-                    this.parentNode.nextElementSibling.innerHTML = subtotal_formateado;
+                var subtotal = cantidad * precio;
+                var subtotal_formateado = subtotal.toFixed(2)
 
-                }
+                this.parentNode.nextElementSibling.innerHTML = subtotal_formateado;
+
+            } else {
+
+                var cantidad = parseFloat(this.value);
+
+                var precio = parseFloat(this.parentNode.previousElementSibling.innerHTML);
 
 
-            });
-        
+                var subtotal = cantidad * precio;
+                var subtotal_iva = subtotal * 0.16
+                var subtotal_sinformato = subtotal + subtotal_iva
+                var subtotal_formateado = subtotal_sinformato.toFixed(2)
+
+
+
+                this.parentNode.nextElementSibling.innerHTML = subtotal_formateado;
+
+            }
+
+
+        });
+
 
         contador++
     }
@@ -230,13 +235,13 @@ function calculo_total(evt) {
     var total = 0
     for (let i = 0; i < subtotal.length; i++) {
 
-            total += parseFloat(subtotal[i].textContent);
-            total_formateado = total.toFixed(2)
+        total += parseFloat(subtotal[i].textContent);
+        total_formateado = total.toFixed(2)
 
 
 
     }
     document.getElementById('total').innerHTML = String(total_formateado) + "$"
-    document.getElementById('total-bolivares').innerHTML = "Bs. " +(total * parseFloat(precio_dolar)).toFixed(2)
+    document.getElementById('total-bolivares').innerHTML = "Bs. " + (total * parseFloat(precio_dolar)).toFixed(2)
 }
 
