@@ -143,3 +143,8 @@ a{
     flex-direction: row;
     justify-content: space-around   ;
 }
+.c2{
+    margin-top: 5px;
+    height: 35px;
+    padding: 4px !important;
+}

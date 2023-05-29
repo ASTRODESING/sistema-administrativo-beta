@@ -95,15 +95,26 @@ def imprimir_pdf(request):
     datos["cliente"] = request.POST["cliente"]
     datos["forma_de_pago"] = request.POST["forma_de_pago"]
     datos["usuario"] = request.user.username
+    datos["referencia"] = request.POST["referencia"]
 
+    try:
+        nueva_factura = Factura.objects.create(
+            id_cliente=  Cliente.objects.get(nombre=request.POST["cliente"]),
+            monto = total["total"],
+            usuario = request.user.username,
+            forma_de_pago = FormasDePago.objects.get(forma=request.POST["forma_de_pago"]),
+            referencia = request.POST["referencia"]
 
-    nueva_factura = Factura.objects.create(
-        id_cliente=  Cliente.objects.get(nombre=request.POST["cliente"]),
-        monto = total["total"],
-        usuario = request.user.username,
-        forma_de_pago = FormasDePago.objects.get(forma=request.POST["forma_de_pago"])
+        )
+    except:
+        nueva_factura = Factura.objects.create(
+            id_cliente=  Cliente.objects.get(nombre=request.POST["cliente"]),
+            monto = total["total"],
+            usuario = request.user.username,
+            forma_de_pago = FormasDePago.objects.get(forma=request.POST["forma_de_pago"]),
+            referencia = 0
 
-    )
+        )
 
     try:
         actualizar_ganancias = Ganancias.objects.get(año=date.today().year,mes=date.today().month,dia=date.today().day) 
@@ -126,11 +137,11 @@ def imprimir_pdf(request):
     datos["numero_factura"] = nueva_factura.numero_factura
 
     template = get_template("pdf.html")
-    html = template.render({"contenido": contenido, "total": total, "datos": datos})
+    html = template.render({"contenido": contenido, "total": total, "datos": datos, "datos_empresa":datos_empresa})
     pdf_file = HTML(string=html).write_pdf()
     file_object = BytesIO(pdf_file)
 
-    nombre = 'reporte-{}.pdf'.format(datetime.now())
+    nombre = 'factura-{}.pdf'.format(datetime.now())
     
     nueva_factura.documento.save(nombre ,file_object)
 

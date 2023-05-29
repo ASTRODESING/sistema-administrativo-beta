@@ -25,6 +25,7 @@ class Factura(models.Model):
     usuario = models.CharField(default="No User Data",max_length=150)
     documento = models.FileField(null=True, upload_to='documents/facturas')
     forma_de_pago = models.ForeignKey(FormasDePago, on_delete=models.CASCADE, to_field="forma", default=1)
+    referencia = models.IntegerField(null=True)
 
     def __str__(self) -> str:
         return self.numero_factura

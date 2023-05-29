@@ -28,6 +28,7 @@
                         <th class="centrado">Nombre Del Cliente</th>
                         <th class="centrado">Numero Factura</th>
                         <th class="centrado">Fecha de Creación</th>
+                        <th class="centrado">Referencia</th>
                         <th class="centrado">Eliminar</th>
                     </tr>
                 </thead>
@@ -37,6 +38,7 @@
                         <th><a href="{% url 'getfactura' factura.numero_factura%}">{{factura.id_cliente.nombre}}</a></th>
                         <th><a href="{% url 'getfactura' factura.numero_factura%}">{{factura.numero_factura}}</a></th>
                         <th><a href="{% url 'getfactura' factura.numero_factura%}">{{factura.fecha_creacion}}</a></th>
+                        <th><a href="{% url 'getfactura' factura.numero_factura%}">{{factura.referencia}}</a></th>
                         <th><a href=""> <img src="{% static 'img/eliminar.svg'%}"></a></th>
                     </tr>
                     {% endfor %}

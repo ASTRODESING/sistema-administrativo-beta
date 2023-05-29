@@ -15,3 +15,4 @@ class DatosEmpresa(models.Model):
     direccion = models.TextField()
     telefono = models.IntegerField()
     correo = models.EmailField()
+    ci_rif = models.IntegerField(default=0)
