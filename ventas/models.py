@@ -28,14 +28,14 @@ class Factura(models.Model):
     referencia = models.IntegerField(null=True)
 
     def __str__(self) -> str:
-        return self.numero_factura
+        return str(self.numero_factura)
 
 class Ganancias(models.Model):
     
     año = models.IntegerField(default= date.today().year)
     mes = models.IntegerField(default= date.today().month)
     dia = models.IntegerField(default= date.today().day)
-    ganancia = models.BigIntegerField(null=True)
+    ganancia = models.PositiveBigIntegerField(null=True)
 
 class NumeroDeClientes(models.Model):
     año = models.IntegerField(default= date.today().year)
