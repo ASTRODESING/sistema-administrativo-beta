@@ -74,7 +74,7 @@ def imprimir_pdf(request):
                 "nombre": p,
                 "precio": float(producto.precio_venta) * precio_dolar.precio,
                 "cantidad": producto_stock[contador],
-                "subtotal": round(subtotal_raw, 2),
+                "subtotal": subtotal_raw,
                 "excento": producto.exento_de_impuesto,
             }
         )
@@ -85,11 +85,15 @@ def imprimir_pdf(request):
 
         contador += 1
 
-    total["iva"] = round(total["total_sin_excento"] * 0.16, 2)
-    total["subtotal_sin_excento_con_iva"] = round(
-        total["total_sin_excento"] + total["iva"], 2
-    )
-    total["total"] = total["subtotal_sin_excento_con_iva"] + total["total_excento"]
+    total["iva"] = total["total_sin_excento"] * 0.16
+    print(total["total_sin_excento"])
+    print(total["iva"])
+    total["subtotal_sin_excento_con_iva"] = total["total_sin_excento"] + total["iva"]
+
+    print(total["subtotal_sin_excento_con_iva"])
+    
+    total["total"] = round((total["subtotal_sin_excento_con_iva"] + total["total_excento"]),3) 
+    print(total["total"])
 
     datos["fecha"] = date.today
     datos["cliente"] = request.POST["cliente"]

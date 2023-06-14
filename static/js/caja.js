@@ -76,7 +76,7 @@ function anadirProductoEtiqueta() {
             celda_excento.textContent = false
             var iva = (cantidad.value * datos.precio) * 0.16
             var subtotal_sinformato = (cantidad.value * datos.precio) + iva
-            celda_subtotal.textContent = subtotal_sinformato.toFixed(2)
+            celda_subtotal.textContent = subtotal_sinformato.toFixed(3)
         }
 
         row.appendChild(celda_nombre)
@@ -158,7 +158,7 @@ function anadirProductoCodigo() {
             celda_excento.textContent = false
             var iva = (cantidad.value * datos.precio) * 0.16
             var subtotal_sinformato = (cantidad.value * datos.precio) + iva
-            celda_subtotal.textContent = subtotal_sinformato.toFixed(2)
+            celda_subtotal.textContent = subtotal_sinformato.toFixed(3)
         }
 
         row.appendChild(celda_nombre)
@@ -193,7 +193,7 @@ function calculo() {
 
 
                 var subtotal = cantidad * precio;
-                var subtotal_formateado = subtotal.toFixed(2)
+                var subtotal_formateado = subtotal.toFixed(3)
 
                 this.parentNode.nextElementSibling.innerHTML = subtotal_formateado;
 
@@ -207,7 +207,7 @@ function calculo() {
                 var subtotal = cantidad * precio;
                 var subtotal_iva = subtotal * 0.16
                 var subtotal_sinformato = subtotal + subtotal_iva
-                var subtotal_formateado = subtotal_sinformato.toFixed(2)
+                var subtotal_formateado = subtotal_sinformato.toFixed(3)
 
 
 
@@ -236,12 +236,12 @@ function calculo_total(evt) {
     for (let i = 0; i < subtotal.length; i++) {
 
         total += parseFloat(subtotal[i].textContent);
-        total_formateado = total.toFixed(2)
+        total_formateado = total.toFixed(3)
 
 
 
     }
     document.getElementById('total').innerHTML = String(total_formateado) + "$"
-    document.getElementById('total-bolivares').innerHTML = "Bs. " + (total * parseFloat(precio_dolar)).toFixed(2)
+    document.getElementById('total-bolivares').innerHTML = "Bs. " + (total * parseFloat(precio_dolar)).toFixed(3)
 }
 
